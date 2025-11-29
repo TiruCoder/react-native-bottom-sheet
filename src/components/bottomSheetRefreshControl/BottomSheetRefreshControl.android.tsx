@@ -1,14 +1,14 @@
-import React, { memo, useContext, useMemo } from 'react';
-import { RefreshControl, type RefreshControlProps } from 'react-native';
+import React, { memo, useContext, useMemo } from "react";
+import { RefreshControl, type RefreshControlProps } from "react-native";
 import {
   Gesture,
   GestureDetector,
   type SimultaneousGesture,
-} from 'react-native-gesture-handler';
-import Animated, { useAnimatedProps } from 'react-native-reanimated';
-import { SCROLLABLE_STATUS } from '../../constants';
-import { BottomSheetDraggableContext } from '../../contexts/gesture';
-import { useBottomSheetInternal } from '../../hooks';
+} from "react-native-gesture-handler";
+import Animated, { useAnimatedProps } from "react-native-reanimated";
+import { SCROLLABLE_STATUS } from "../../constants";
+import { BottomSheetDraggableContext } from "../../contexts/gesture";
+import { useBottomSheetInternal } from "../../hooks";
 
 const AnimatedRefreshControl = Animated.createAnimatedComponent(RefreshControl);
 
@@ -38,7 +38,7 @@ function BottomSheetRefreshControlComponent({
     () => ({
       enabled: animatedScrollableState.value === SCROLLABLE_STATUS.UNLOCKED,
     }),
-    [animatedScrollableState.value]
+    [animatedScrollableState.value],
   );
 
   const gesture = useMemo(
@@ -48,11 +48,11 @@ function BottomSheetRefreshControlComponent({
             // @ts-ignore
             .simultaneousWithExternalGesture(
               ...draggableGesture.toGestureArray(),
-              ...scrollableGesture.toGestureArray()
+              ...scrollableGesture.toGestureArray(),
             )
             .shouldCancelWhenOutside(true)
         : undefined,
-    [draggableGesture, scrollableGesture]
+    [draggableGesture, scrollableGesture],
   );
 
   //#endregion
@@ -79,6 +79,6 @@ function BottomSheetRefreshControlComponent({
 }
 
 const BottomSheetRefreshControl = memo(BottomSheetRefreshControlComponent);
-BottomSheetRefreshControl.displayName = 'BottomSheetRefreshControl';
+BottomSheetRefreshControl.displayName = "BottomSheetRefreshControl";
 
 export default BottomSheetRefreshControl;

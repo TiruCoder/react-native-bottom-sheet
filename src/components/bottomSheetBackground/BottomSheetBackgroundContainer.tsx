@@ -1,8 +1,8 @@
-import React, { memo, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { BottomSheetBackground } from './BottomSheetBackground';
-import { styles } from './styles';
-import type { BottomSheetBackgroundContainerProps } from './types';
+import React, { memo, useMemo } from "react";
+import { StyleSheet } from "react-native";
+import { BottomSheetBackground } from "./BottomSheetBackground";
+import { styles } from "./styles";
+import type { BottomSheetBackgroundContainerProps } from "./types";
 
 const BottomSheetBackgroundContainerComponent = ({
   animatedIndex,
@@ -13,7 +13,7 @@ const BottomSheetBackgroundContainerComponent = ({
   //#region style
   const backgroundStyle = useMemo(
     () => StyleSheet.flatten([styles.container, _providedBackgroundStyle]),
-    [_providedBackgroundStyle]
+    [_providedBackgroundStyle],
   );
   //#endregion
 
@@ -30,6 +30,6 @@ const BottomSheetBackgroundContainerComponent = ({
 };
 
 export const BottomSheetBackgroundContainer = memo(
-  BottomSheetBackgroundContainerComponent
+  BottomSheetBackgroundContainerComponent,
 );
-BottomSheetBackgroundContainer.displayName = 'BottomSheetBackgroundContainer';
+BottomSheetBackgroundContainer.displayName = "BottomSheetBackgroundContainer";

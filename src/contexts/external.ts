@@ -1,5 +1,5 @@
-import { createContext } from 'react';
-import type { BottomSheetMethods, BottomSheetVariables } from '../types';
+import { createContext } from "react";
+import type { BottomSheetMethods, BottomSheetVariables } from "../types";
 
 export const BottomSheetContext = createContext<
   (BottomSheetMethods & BottomSheetVariables) | null

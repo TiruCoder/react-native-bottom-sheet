@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react';
-import type { SimultaneousGesture } from 'react-native-gesture-handler';
-import BottomSheetRefreshControl from '../bottomSheetRefreshControl';
-import { BottomSheetDraggableScrollable } from './BottomSheetDraggableScrollable';
-import { styles } from './styles';
+import React, { forwardRef } from "react";
+import type { SimultaneousGesture } from "react-native-gesture-handler";
+import BottomSheetRefreshControl from "../bottomSheetRefreshControl";
+import { BottomSheetDraggableScrollable } from "./BottomSheetDraggableScrollable";
+import { styles } from "./styles";
 
 interface ScrollableContainerProps {
   nativeGesture: SimultaneousGesture;
@@ -30,7 +30,7 @@ export const ScrollableContainer = forwardRef<any, ScrollableContainerProps>(
       ScrollableComponent,
       ...rest
     },
-    ref
+    ref,
   ) {
     const Scrollable = (
       <BottomSheetDraggableScrollable scrollableGesture={nativeGesture}>
@@ -51,5 +51,5 @@ export const ScrollableContainer = forwardRef<any, ScrollableContainerProps>(
     ) : (
       Scrollable
     );
-  }
+  },
 );

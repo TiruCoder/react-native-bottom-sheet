@@ -1,31 +1,32 @@
-import { type RefObject, useCallback, useRef } from 'react';
-import type { NodeHandle } from 'react-native';
+import { useCallback, useRef } from "react";
+import type { NodeHandle } from "react-native";
 import {
+  type AnimatedRef,
   type SharedValue,
   useDerivedValue,
   useSharedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 import {
   ANIMATION_STATUS,
   KEYBOARD_STATUS,
   SCROLLABLE_STATUS,
   SCROLLABLE_TYPE,
   SHEET_STATE,
-} from '../constants';
+} from "../constants";
 import type {
   AnimationState,
   KeyboardState,
   Scrollable,
   ScrollableRef,
   ScrollableState,
-} from '../types';
-import { findNodeHandle } from '../utilities';
+} from "../types";
+import { findNodeHandle } from "../utilities";
 
 export const useScrollable = (
   enableContentPanningGesture: boolean,
   animatedSheetState: SharedValue<SHEET_STATE>,
   animatedKeyboardState: SharedValue<KeyboardState>,
-  animatedAnimationState: SharedValue<AnimationState>
+  animatedAnimationState: SharedValue<AnimationState>,
 ) => {
   //#region refs
   const scrollableRef = useRef<ScrollableRef>(null);
@@ -98,7 +99,7 @@ export const useScrollable = (
     }
   }, []);
 
-  const removeScrollableRef = useCallback((ref: RefObject<Scrollable>) => {
+  const removeScrollableRef = useCallback((ref: AnimatedRef<Scrollable>) => {
     // find node handle id
     let id: NodeHandle | null;
     try {

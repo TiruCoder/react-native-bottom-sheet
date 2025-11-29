@@ -1,15 +1,16 @@
-import React, { useRef } from 'react';
-import { type TextProps as RNTextProps, TextInput } from 'react-native';
+import React, { useRef } from "react";
+import { type TextProps as RNTextProps, TextInput } from "react-native";
 import Animated, {
+  type AnimatedProps,
   type SharedValue,
   useAnimatedReaction,
   useDerivedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 interface TextProps {
   text: string;
   value: SharedValue<number | boolean> | number;
-  style?: Animated.AnimateProps<RNTextProps>['style'];
+  style?: AnimatedProps<RNTextProps>["style"];
 }
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
@@ -20,9 +21,9 @@ const ReText = (props: TextProps) => {
 
   const providedValue = useDerivedValue(() => {
     const value =
-      typeof _providedValue === 'number'
+      typeof _providedValue === "number"
         ? _providedValue
-        : typeof _providedValue.value === 'number'
+        : typeof _providedValue.value === "number"
           ? _providedValue.value.toFixed(2)
           : _providedValue.value;
 
@@ -32,12 +33,12 @@ const ReText = (props: TextProps) => {
   //region effects
   useAnimatedReaction(
     () => providedValue.value,
-    result => {
+    (result) => {
       textRef.current?.setNativeProps({
         text: result,
       });
     },
-    []
+    [],
   );
   //endregion
 

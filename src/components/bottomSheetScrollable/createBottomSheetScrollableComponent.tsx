@@ -3,29 +3,29 @@ import React, {
   useContext,
   useImperativeHandle,
   useMemo,
-} from 'react';
-import { Gesture } from 'react-native-gesture-handler';
-import { useAnimatedProps } from 'react-native-reanimated';
+} from "react";
+import { Gesture } from "react-native-gesture-handler";
+import { useAnimatedProps } from "react-native-reanimated";
 import {
   SCROLLABLE_DECELERATION_RATE_MAPPER,
   SCROLLABLE_STATUS,
   type SCROLLABLE_TYPE,
-} from '../../constants';
-import { BottomSheetDraggableContext } from '../../contexts/gesture';
+} from "../../constants";
+import { BottomSheetDraggableContext } from "../../contexts/gesture";
 import {
   useBottomSheetContentContainerStyle,
   useBottomSheetInternal,
   useScrollHandler,
   useScrollableSetter,
   useStableCallback,
-} from '../../hooks';
-import { ScrollableContainer } from './ScrollableContainer';
-import { useBottomSheetContentSizeSetter } from './useBottomSheetContentSizeSetter';
+} from "../../hooks";
+import { ScrollableContainer } from "./ScrollableContainer";
+import { useBottomSheetContentSizeSetter } from "./useBottomSheetContentSizeSetter";
 
 export function createBottomSheetScrollableComponent<T, P>(
   type: SCROLLABLE_TYPE,
   // biome-ignore lint: to be addressed!
-  ScrollableComponent: any
+  ScrollableComponent: any,
 ) {
   return forwardRef<T, P>((props, ref) => {
     //#region props
@@ -35,8 +35,8 @@ export function createBottomSheetScrollableComponent<T, P>(
       scrollEventsHandlersHook,
       // props
       enableFooterMarginAdjustment = false,
-      overScrollMode = 'never',
-      keyboardDismissMode = 'interactive',
+      overScrollMode = "never",
+      keyboardDismissMode = "interactive",
       showsVerticalScrollIndicator = true,
       contentContainerStyle: _providedContentContainerStyle,
       refreshing,
@@ -60,7 +60,7 @@ export function createBottomSheetScrollableComponent<T, P>(
         scrollEventsHandlersHook,
         onScroll,
         onScrollBeginDrag,
-        onScrollEndDrag
+        onScrollEndDrag,
       );
     const {
       animatedScrollableStatus: animatedScrollableState,
@@ -82,7 +82,7 @@ export function createBottomSheetScrollableComponent<T, P>(
           ? animatedScrollableState.value === SCROLLABLE_STATUS.UNLOCKED
           : showsVerticalScrollIndicator,
       }),
-      [animatedScrollableState, showsVerticalScrollIndicator]
+      [animatedScrollableState, showsVerticalScrollIndicator],
     );
 
     const scrollableGesture = useMemo(
@@ -93,7 +93,7 @@ export function createBottomSheetScrollableComponent<T, P>(
               .simultaneousWithExternalGesture(draggableGesture)
               .shouldCancelWhenOutside(false)
           : undefined,
-      [draggableGesture]
+      [draggableGesture],
     );
     //#endregion
 
@@ -104,14 +104,14 @@ export function createBottomSheetScrollableComponent<T, P>(
         if (onContentSizeChange) {
           onContentSizeChange(contentWidth, contentHeight);
         }
-      }
+      },
     );
     //#endregion
 
     //#region styles
     const contentContainerStyle = useBottomSheetContentContainerStyle(
       enableFooterMarginAdjustment,
-      _providedContentContainerStyle
+      _providedContentContainerStyle,
     );
     //#endregion
 
@@ -123,7 +123,7 @@ export function createBottomSheetScrollableComponent<T, P>(
       type,
       scrollableContentOffsetY,
       onRefresh !== undefined,
-      focusHook
+      focusHook,
     );
     //#endregion
 

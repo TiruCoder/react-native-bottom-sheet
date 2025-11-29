@@ -1,4 +1,3 @@
-import type React from 'react';
 import type {
   AccessibilityProps,
   FlatList,
@@ -8,7 +7,7 @@ import type {
   NativeSyntheticEvent,
   ScrollView,
   SectionList,
-} from 'react-native';
+} from "react-native";
 import type {
   GestureEventPayload,
   GestureStateChangeEvent,
@@ -16,7 +15,7 @@ import type {
   PanGestureChangeEventPayload,
   PanGestureHandlerEventPayload,
   State,
-} from 'react-native-gesture-handler';
+} from "react-native-gesture-handler";
 import type {
   EasingFunction,
   EasingFunctionFactory,
@@ -24,15 +23,14 @@ import type {
   SharedValue,
   WithSpringConfig,
   WithTimingConfig,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 import type {
   ANIMATION_SOURCE,
   ANIMATION_STATUS,
   GESTURE_SOURCE,
   KEYBOARD_STATUS,
-  SCROLLABLE_STATUS,
   SCROLLABLE_TYPE,
-} from './constants';
+} from "./constants";
 
 //#region Methods
 export interface BottomSheetMethods {
@@ -46,7 +44,7 @@ export interface BottomSheetMethods {
    */
   snapToIndex: (
     index: number,
-    animationConfigs?: WithSpringConfig | WithTimingConfig
+    animationConfigs?: WithSpringConfig | WithTimingConfig,
   ) => void;
   /**
    * Snap to a position out of provided  `snapPoints`.
@@ -58,7 +56,7 @@ export interface BottomSheetMethods {
    */
   snapToPosition: (
     position: number | string,
-    animationConfigs?: WithSpringConfig | WithTimingConfig
+    animationConfigs?: WithSpringConfig | WithTimingConfig,
   ) => void;
   /**
    * Snap to the maximum provided point from `snapPoints`.
@@ -134,10 +132,10 @@ export type ScrollableState = {
 export type Scrollable = FlatList | ScrollView | SectionList;
 export type ScrollableRef = {
   id: number;
-  node: React.RefObject<Scrollable>;
+  node: AnimatedRef<Scrollable>;
 };
 export type ScrollableEvent = (
-  event: Pick<NativeSyntheticEvent<NativeScrollEvent>, 'nativeEvent'>
+  event: Pick<NativeSyntheticEvent<NativeScrollEvent>, "nativeEvent">,
 ) => void;
 //#endregion
 
@@ -185,7 +183,7 @@ export type GestureEventContextType = {
 
 export type GestureEventHandlerCallbackType = (
   source: GESTURE_SOURCE,
-  payload: GestureEventPayloadType
+  payload: GestureEventPayloadType,
 ) => void;
 
 export type GestureEventsHandlersHookType = () => {
@@ -202,32 +200,32 @@ export type GestureHandlersHookType = (
   onStart: GestureEventHandlerCallbackType,
   onChange: GestureEventHandlerCallbackType,
   onEnd: GestureEventHandlerCallbackType,
-  onFinalize: GestureEventHandlerCallbackType
+  onFinalize: GestureEventHandlerCallbackType,
 ) => {
   handleOnStart: (
-    event: GestureStateChangeEvent<PanGestureHandlerEventPayload>
+    event: GestureStateChangeEvent<PanGestureHandlerEventPayload>,
   ) => void;
   handleOnChange: (
     event: GestureUpdateEvent<
       PanGestureHandlerEventPayload & PanGestureChangeEventPayload
-    >
+    >,
   ) => void;
   handleOnEnd: (
-    event: GestureStateChangeEvent<PanGestureHandlerEventPayload>
+    event: GestureStateChangeEvent<PanGestureHandlerEventPayload>,
   ) => void;
   handleOnFinalize: (
-    event: GestureStateChangeEvent<PanGestureHandlerEventPayload>
+    event: GestureStateChangeEvent<PanGestureHandlerEventPayload>,
   ) => void;
 };
 
 type ScrollEventHandlerCallbackType<C = never> = (
   payload: NativeScrollEvent,
-  context: C
+  context: C,
 ) => void;
 
 export type ScrollEventsHandlersHookType = (
-  ref: React.RefObject<Scrollable>,
-  contentOffsetY: SharedValue<number>
+  ref: AnimatedRef<Scrollable>,
+  contentOffsetY: SharedValue<number>,
 ) => {
   handleOnScroll?: ScrollEventHandlerCallbackType;
   handleOnBeginDrag?: ScrollEventHandlerCallbackType;
@@ -239,10 +237,10 @@ export type ScrollEventsHandlersHookType = (
 
 //#region accessibility
 export interface NullableAccessibilityProps extends AccessibilityProps {
-  accessible?: AccessibilityProps['accessible'] | null;
-  accessibilityLabel?: AccessibilityProps['accessibilityLabel'] | null;
-  accessibilityHint?: AccessibilityProps['accessibilityHint'] | null;
-  accessibilityRole?: AccessibilityProps['accessibilityRole'] | null;
+  accessible?: AccessibilityProps["accessible"] | null;
+  accessibilityLabel?: AccessibilityProps["accessibilityLabel"] | null;
+  accessibilityHint?: AccessibilityProps["accessibilityHint"] | null;
+  accessibilityRole?: AccessibilityProps["accessibilityRole"] | null;
 }
 //#endregion
 

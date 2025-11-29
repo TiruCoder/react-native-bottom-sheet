@@ -2,4 +2,4 @@ export {
   TouchableOpacity,
   TouchableHighlight,
   TouchableWithoutFeedback,
-} from 'react-native';
+} from "react-native";

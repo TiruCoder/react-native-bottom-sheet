@@ -1,37 +1,37 @@
-import type { KeyboardEventEasing } from 'react-native';
-import { Easing } from 'react-native-reanimated';
+import type { KeyboardEventEasing } from "react-native";
+import { Easing } from "react-native-reanimated";
 
 export const getKeyboardAnimationConfigs = (
   easing: KeyboardEventEasing,
-  duration: number
+  duration: number,
 ) => {
-  'worklet';
+  "worklet";
   switch (easing) {
-    case 'easeIn':
+    case "easeIn":
       return {
         easing: Easing.in(Easing.ease),
         duration,
       };
 
-    case 'easeOut':
+    case "easeOut":
       return {
         easing: Easing.out(Easing.ease),
         duration,
       };
 
-    case 'easeInEaseOut':
+    case "easeInEaseOut":
       return {
         easing: Easing.inOut(Easing.ease),
         duration,
       };
 
-    case 'linear':
+    case "linear":
       return {
         easing: Easing.linear,
         duration,
       };
 
-    case 'keyboard':
+    case "keyboard":
       return {
         damping: 500,
         stiffness: 1000,

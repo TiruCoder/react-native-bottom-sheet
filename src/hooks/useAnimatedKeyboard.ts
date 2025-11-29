@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from "react";
 import {
   Keyboard,
   type KeyboardEvent,
   type KeyboardEventEasing,
   type KeyboardEventName,
   Platform,
-} from 'react-native';
+} from "react-native";
 import {
   runOnUI,
   useAnimatedReaction,
   useSharedValue,
-} from 'react-native-reanimated';
-import { KEYBOARD_STATUS, SCREEN_HEIGHT } from '../constants';
-import type { KeyboardState } from '../types';
+} from "react-native-reanimated";
+import { KEYBOARD_STATUS, SCREEN_HEIGHT } from "../constants";
+import type { KeyboardState } from "../types";
 
 const KEYBOARD_EVENT_MAPPER = {
   KEYBOARD_SHOW: Platform.select({
-    ios: 'keyboardWillShow',
-    android: 'keyboardDidShow',
-    default: '',
+    ios: "keyboardWillShow",
+    android: "keyboardDidShow",
+    default: "",
   }) as KeyboardEventName,
   KEYBOARD_HIDE: Platform.select({
-    ios: 'keyboardWillHide',
-    android: 'keyboardDidHide',
-    default: '',
+    ios: "keyboardWillHide",
+    android: "keyboardDidHide",
+    default: "",
   }) as KeyboardEventName,
 };
 
@@ -31,7 +31,7 @@ const INITIAL_STATE: KeyboardState = {
   status: KEYBOARD_STATUS.UNDETERMINED,
   height: 0,
   heightWithinContainer: 0,
-  easing: 'keyboard',
+  easing: "keyboard",
   duration: 500,
 };
 
@@ -41,7 +41,7 @@ export const useAnimatedKeyboard = () => {
   const state = useSharedValue(INITIAL_STATE);
   const temporaryCachedState = useSharedValue<Omit<
     KeyboardState,
-    'heightWithinContainer' | 'target'
+    "heightWithinContainer" | "target"
   > | null>(null);
   //#endregion
 
@@ -52,9 +52,9 @@ export const useAnimatedKeyboard = () => {
       height: number,
       duration: number,
       easing: KeyboardEventEasing,
-      bottomOffset?: number
+      bottomOffset?: number,
     ) => {
-      'worklet';
+      "worklet";
       const currentState = state.get();
 
       /**
@@ -91,7 +91,7 @@ export const useAnimatedKeyboard = () => {
         adjustedHeight = adjustedHeight + bottomOffset;
       }
 
-      state.set(state => ({
+      state.set((state) => ({
         status,
         easing,
         duration,
@@ -100,7 +100,7 @@ export const useAnimatedKeyboard = () => {
         heightWithinContainer: state.heightWithinContainer,
       }));
     },
-    [state, temporaryCachedState]
+    [state, temporaryCachedState],
   );
   //#endregion
 
@@ -114,7 +114,7 @@ export const useAnimatedKeyboard = () => {
         event.easing,
         SCREEN_HEIGHT -
           event.endCoordinates.height -
-          event.endCoordinates.screenY
+          event.endCoordinates.screenY,
       );
     };
     const handleOnKeyboardHide = (event: KeyboardEvent) => {
@@ -122,18 +122,18 @@ export const useAnimatedKeyboard = () => {
         KEYBOARD_STATUS.HIDDEN,
         event.endCoordinates.height,
         event.duration,
-        event.easing
+        event.easing,
       );
     };
 
     const showSubscription = Keyboard.addListener(
       KEYBOARD_EVENT_MAPPER.KEYBOARD_SHOW,
-      handleOnKeyboardShow
+      handleOnKeyboardShow,
     );
 
     const hideSubscription = Keyboard.addListener(
       KEYBOARD_EVENT_MAPPER.KEYBOARD_HIDE,
-      handleOnKeyboardHide
+      handleOnKeyboardHide,
     );
 
     return () => {
@@ -163,10 +163,10 @@ export const useAnimatedKeyboard = () => {
         cachedState.status,
         cachedState.height,
         cachedState.duration,
-        cachedState.easing
+        cachedState.easing,
       );
     },
-    [temporaryCachedState, handleKeyboardEvent]
+    [temporaryCachedState, handleKeyboardEvent],
   );
   //#endregion
 

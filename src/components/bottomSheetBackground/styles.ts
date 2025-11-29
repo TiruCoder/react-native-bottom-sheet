@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: StyleSheet.absoluteFillObject,
   background: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 15,
   },
 });

@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
-import { useDerivedValue } from 'react-native-reanimated';
-import { INITIAL_LAYOUT_VALUE, KEYBOARD_STATUS } from '../../constants';
-import { useBottomSheetInternal } from '../../hooks';
-import type { BottomSheetFooterContainerProps } from './types';
+import React, { memo } from "react";
+import { useDerivedValue } from "react-native-reanimated";
+import { INITIAL_LAYOUT_VALUE, KEYBOARD_STATUS } from "../../constants";
+import { useBottomSheetInternal } from "../../hooks";
+import type { BottomSheetFooterContainerProps } from "./types";
 
 const BottomSheetFooterContainerComponent = ({
   footerComponent: FooterComponent,
@@ -38,6 +38,6 @@ const BottomSheetFooterContainerComponent = ({
 };
 
 export const BottomSheetFooterContainer = memo(
-  BottomSheetFooterContainerComponent
+  BottomSheetFooterContainerComponent,
 );
-BottomSheetFooterContainer.displayName = 'BottomSheetFooterContainer';
+BottomSheetFooterContainer.displayName = "BottomSheetFooterContainer";

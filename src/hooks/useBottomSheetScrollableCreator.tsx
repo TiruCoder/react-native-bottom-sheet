@@ -1,8 +1,8 @@
-import { type ReactElement, useCallback } from 'react';
+import { type ReactElement, useCallback } from "react";
 import {
   type BottomSheetScrollableProps,
   BottomSheetScrollView,
-} from '../components/bottomSheetScrollable';
+} from "../components/bottomSheetScrollable";
 
 type BottomSheetScrollableCreatorConfigs = {} & BottomSheetScrollableProps;
 
@@ -36,13 +36,13 @@ export function useBottomSheetScrollableCreator<T = any>({
   enableFooterMarginAdjustment,
 }: BottomSheetScrollableCreatorConfigs = {}): (
   props: T,
-  ref?: never
+  ref?: never,
 ) => ReactElement<T> {
   return useCallback(
     function useBottomSheetScrollableCreator(
       // @ts-expect-error
       { data: _, ...props }: T,
-      ref?: never
+      ref?: never,
     ): ReactElement<T> {
       return (
         // @ts-expect-error
@@ -55,6 +55,6 @@ export function useBottomSheetScrollableCreator<T = any>({
         />
       );
     },
-    [focusHook, scrollEventsHandlersHook, enableFooterMarginAdjustment]
+    [focusHook, scrollEventsHandlersHook, enableFooterMarginAdjustment],
   );
 }

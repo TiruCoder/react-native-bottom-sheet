@@ -1,11 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 import {
   type SharedValue,
   makeMutable,
   useAnimatedReaction,
-} from 'react-native-reanimated';
-import { INITIAL_CONTAINER_LAYOUT, INITIAL_LAYOUT_VALUE } from '../constants';
-import type { ContainerLayoutState, LayoutState } from '../types';
+} from "react-native-reanimated";
+import { INITIAL_CONTAINER_LAYOUT, INITIAL_LAYOUT_VALUE } from "../constants";
+import type { ContainerLayoutState, LayoutState } from "../types";
 
 const INITIAL_STATE: LayoutState = {
   rawContainerHeight: INITIAL_LAYOUT_VALUE,
@@ -36,12 +36,12 @@ export function useAnimatedLayout(
   topInset: number,
   bottomInset: number,
   modal?: boolean,
-  shouldOverrideHandleHeight?: boolean
+  shouldOverrideHandleHeight?: boolean,
 ) {
   //#region  variables
   const verticalInset = useMemo(
     () => topInset + bottomInset,
-    [topInset, bottomInset]
+    [topInset, bottomInset],
   );
   const initialState = useMemo(() => {
     const _state = { ...INITIAL_STATE };
@@ -77,13 +77,13 @@ export function useAnimatedLayout(
         return;
       }
 
-      state.modify(_state => {
-        'worklet';
+      state.modify((_state) => {
+        "worklet";
         _state.containerHeight = modal ? result - verticalInset : result;
         return _state;
       });
     },
-    [state, verticalInset, modal]
+    [state, verticalInset, modal],
   );
   useAnimatedReaction(
     () => containerLayoutState?.get().height,
@@ -95,13 +95,13 @@ export function useAnimatedLayout(
         return;
       }
 
-      state.modify(_state => {
-        'worklet';
+      state.modify((_state) => {
+        "worklet";
         _state.containerHeight = modal ? result - verticalInset : result;
         return _state;
       });
     },
-    [state, verticalInset, modal]
+    [state, verticalInset, modal],
   );
   //#endregion
 

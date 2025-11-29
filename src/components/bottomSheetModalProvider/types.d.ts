@@ -1,5 +1,5 @@
-import type { ReactNode, RefObject } from 'react';
-import type { BottomSheetModalPrivateMethods } from '../bottomSheetModal';
+import type { ReactNode, RefObject } from "react";
+import type { BottomSheetModalPrivateMethods } from "../bottomSheetModal";
 
 export interface BottomSheetModalRef {
   key: string;

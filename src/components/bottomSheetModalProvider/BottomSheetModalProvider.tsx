@@ -1,32 +1,32 @@
-import { PortalProvider } from '@gorhom/portal';
-import React, { useCallback, useMemo, useRef } from 'react';
-import { useSharedValue } from 'react-native-reanimated';
+import { PortalProvider } from "@gorhom/portal";
+import React, { useCallback, useMemo, useRef } from "react";
+import { useSharedValue } from "react-native-reanimated";
 import {
   INITIAL_CONTAINER_LAYOUT,
   MODAL_STACK_BEHAVIOR,
-} from '../../constants';
+} from "../../constants";
 import {
   BottomSheetModalInternalProvider,
   BottomSheetModalProvider,
-} from '../../contexts';
-import type { ContainerLayoutState } from '../../types';
-import { id } from '../../utilities/id';
-import { BottomSheetHostingContainer } from '../bottomSheetHostingContainer';
+} from "../../contexts";
+import type { ContainerLayoutState } from "../../types";
+import { id } from "../../utilities/id";
+import { BottomSheetHostingContainer } from "../bottomSheetHostingContainer";
 import type {
   BottomSheetModalPrivateMethods,
   BottomSheetModalStackBehavior,
-} from '../bottomSheetModal';
+} from "../bottomSheetModal";
 import type {
   BottomSheetModalProviderProps,
   BottomSheetModalRef,
-} from './types';
+} from "./types";
 
 const BottomSheetModalProviderWrapper = ({
   children,
 }: BottomSheetModalProviderProps) => {
   //#region layout variables
   const animatedContainerLayoutState = useSharedValue<ContainerLayoutState>(
-    INITIAL_CONTAINER_LAYOUT
+    INITIAL_CONTAINER_LAYOUT,
   );
   //#endregion
 
@@ -40,10 +40,10 @@ const BottomSheetModalProviderWrapper = ({
     (
       key: string,
       ref: React.RefObject<BottomSheetModalPrivateMethods>,
-      stackBehavior: BottomSheetModalStackBehavior
+      stackBehavior: BottomSheetModalStackBehavior,
     ) => {
       const _sheetsQueue = sheetsQueueRef.current.slice();
-      const sheetIndex = _sheetsQueue.findIndex(item => item.key === key);
+      const sheetIndex = _sheetsQueue.findIndex((item) => item.key === key);
       const sheetOnTop = sheetIndex === _sheetsQueue.length - 1;
 
       /**
@@ -91,11 +91,11 @@ const BottomSheetModalProviderWrapper = ({
       });
       sheetsQueueRef.current = _sheetsQueue;
     },
-    []
+    [],
   );
   const handleUnmountSheet = useCallback((key: string) => {
     const _sheetsQueue = sheetsQueueRef.current.slice();
-    const sheetIndex = _sheetsQueue.findIndex(item => item.key === key);
+    const sheetIndex = _sheetsQueue.findIndex((item) => item.key === key);
     const sheetOnTop = sheetIndex === _sheetsQueue.length - 1;
 
     /**
@@ -126,7 +126,7 @@ const BottomSheetModalProviderWrapper = ({
   }, []);
   const handleWillUnmountSheet = useCallback((key: string) => {
     const _sheetsQueue = sheetsQueueRef.current.slice();
-    const sheetIndex = _sheetsQueue.findIndex(item => item.key === key);
+    const sheetIndex = _sheetsQueue.findIndex((item) => item.key === key);
     const sheetOnTop = sheetIndex === _sheetsQueue.length - 1;
 
     /**
@@ -153,7 +153,7 @@ const BottomSheetModalProviderWrapper = ({
   //#region public methods
   const handleDismiss = useCallback((key?: string) => {
     const sheetToBeDismissed = key
-      ? sheetsQueueRef.current.find(item => item.key === key)
+      ? sheetsQueueRef.current.find((item) => item.key === key)
       : sheetsQueueRef.current[sheetsQueueRef.current.length - 1];
     if (sheetToBeDismissed) {
       sheetToBeDismissed.ref?.current?.dismiss();
@@ -162,7 +162,7 @@ const BottomSheetModalProviderWrapper = ({
     return false;
   }, []);
   const handleDismissAll = useCallback(() => {
-    sheetsQueueRef.current.map(item => {
+    sheetsQueueRef.current.map((item) => {
       item.ref?.current?.dismiss();
     });
   }, []);
@@ -174,7 +174,7 @@ const BottomSheetModalProviderWrapper = ({
       dismiss: handleDismiss,
       dismissAll: handleDismissAll,
     }),
-    [handleDismiss, handleDismissAll]
+    [handleDismiss, handleDismissAll],
   );
   const internalContextVariables = useMemo(
     () => ({
@@ -190,7 +190,7 @@ const BottomSheetModalProviderWrapper = ({
       handleMountSheet,
       handleUnmountSheet,
       handleWillUnmountSheet,
-    ]
+    ],
   );
   //#endregion
 

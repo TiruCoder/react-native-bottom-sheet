@@ -1,31 +1,31 @@
-import React, { memo, useMemo } from 'react';
-import type { ViewProps, ViewStyle } from 'react-native';
+import React, { memo, useMemo } from "react";
+import type { ViewProps, ViewStyle } from "react-native";
 import Animated, {
   type AnimatedStyle,
   useAnimatedStyle,
   useDerivedValue,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 import {
   INITIAL_LAYOUT_VALUE,
   KEYBOARD_BEHAVIOR,
   KEYBOARD_STATUS,
-} from '../../constants';
-import { useBottomSheetInternal } from '../../hooks';
-import type { NullableAccessibilityProps } from '../../types';
-import { animate } from '../../utilities';
-import BottomSheetDraggableView from '../bottomSheetDraggableView';
-import {} from './constants';
-import type { BottomSheetProps } from './types';
+} from "../../constants";
+import { useBottomSheetInternal } from "../../hooks";
+import type { NullableAccessibilityProps } from "../../types";
+import { animate } from "../../utilities";
+import BottomSheetDraggableView from "../bottomSheetDraggableView";
+import {} from "./constants";
+import type { BottomSheetProps } from "./types";
 
 type BottomSheetContent = {
   style?: AnimatedStyle<ViewStyle>;
 } & Pick<
   BottomSheetProps,
-  | 'children'
-  | 'detached'
-  | 'animationConfigs'
-  | 'overrideReduceMotion'
-  | 'keyboardBehavior'
+  | "children"
+  | "detached"
+  | "animationConfigs"
+  | "overrideReduceMotion"
+  | "keyboardBehavior"
 > &
   NullableAccessibilityProps &
   ViewProps;
@@ -144,7 +144,7 @@ function BottomSheetContentComponent({
 
     const highestSnapPoint = Math.max(
       highestDetentPosition ?? 0,
-      animatedPosition.get()
+      animatedPosition.get(),
     );
     /**
      * added safe area to prevent the sheet from floating above
@@ -225,11 +225,11 @@ function BottomSheetContentComponent({
   const contentContainerStyle = useMemo(
     () => [
       detached
-        ? { overflow: 'visible' as const }
-        : { overflow: 'hidden' as const },
+        ? { overflow: "visible" as const }
+        : { overflow: "hidden" as const },
       contentMaskContainerAnimatedStyle,
     ],
-    [contentMaskContainerAnimatedStyle, detached]
+    [contentMaskContainerAnimatedStyle, detached],
   );
   //#endregion
 
@@ -252,4 +252,4 @@ function BottomSheetContentComponent({
 }
 
 export const BottomSheetContent = memo(BottomSheetContentComponent);
-BottomSheetContent.displayName = 'BottomSheetContent';
+BottomSheetContent.displayName = "BottomSheetContent";

@@ -1,7 +1,7 @@
-import type React from 'react';
-import type { View } from 'react-native';
-import type { MODAL_STACK_BEHAVIOR } from '../../constants';
-import type { BottomSheetProps } from '../bottomSheet';
+import type React from "react";
+import type { View } from "react-native";
+import type { MODAL_STACK_BEHAVIOR } from "../../constants";
+import type { BottomSheetProps } from "../bottomSheet";
 
 export interface BottomSheetModalPrivateMethods {
   dismiss: (force?: boolean) => void;
@@ -13,7 +13,7 @@ export type BottomSheetModalStackBehavior = keyof typeof MODAL_STACK_BEHAVIOR;
 
 // biome-ignore lint/suspicious/noExplicitAny: Using 'any' allows users to define their own strict types for 'data' property.
 export interface BottomSheetModalProps<T = any>
-  extends Omit<BottomSheetProps, 'containerHeight' | 'onClose'> {
+  extends Omit<BottomSheetProps, "containerHeight" | "onClose"> {
   /**
    * Modal name to help identify the modal for later on.
    * @type string

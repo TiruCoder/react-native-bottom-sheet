@@ -1,13 +1,13 @@
-import React, { useMemo } from 'react';
-import { useSharedValue } from 'react-native-reanimated';
-import { GESTURE_SOURCE } from '../../constants';
-import { BottomSheetGestureHandlersContext } from '../../contexts';
+import React, { useMemo } from "react";
+import { useSharedValue } from "react-native-reanimated";
+import { GESTURE_SOURCE } from "../../constants";
+import { BottomSheetGestureHandlersContext } from "../../contexts";
 import {
   useBottomSheetInternal,
   useGestureEventsHandlersDefault,
   useGestureHandler,
-} from '../../hooks';
-import type { BottomSheetGestureHandlersProviderProps } from './types';
+} from "../../hooks";
+import type { BottomSheetGestureHandlersProviderProps } from "./types";
 
 const BottomSheetGestureHandlersProvider = ({
   gestureEventsHandlersHook:
@@ -16,7 +16,7 @@ const BottomSheetGestureHandlersProvider = ({
 }: BottomSheetGestureHandlersProviderProps) => {
   //#region variables
   const animatedGestureSource = useSharedValue<GESTURE_SOURCE>(
-    GESTURE_SOURCE.UNDETERMINED
+    GESTURE_SOURCE.UNDETERMINED,
   );
   //#endregion
 
@@ -35,7 +35,7 @@ const BottomSheetGestureHandlersProvider = ({
     handleOnStart,
     handleOnChange,
     handleOnEnd,
-    handleOnFinalize
+    handleOnFinalize,
   );
 
   const handlePanGestureHandler = useGestureHandler(
@@ -45,7 +45,7 @@ const BottomSheetGestureHandlersProvider = ({
     handleOnStart,
     handleOnChange,
     handleOnEnd,
-    handleOnFinalize
+    handleOnFinalize,
   );
   //#endregion
 
@@ -56,7 +56,7 @@ const BottomSheetGestureHandlersProvider = ({
       handlePanGestureHandler,
       animatedGestureSource,
     }),
-    [contentPanGestureHandler, handlePanGestureHandler, animatedGestureSource]
+    [contentPanGestureHandler, handlePanGestureHandler, animatedGestureSource],
   );
   //#endregion
   return (

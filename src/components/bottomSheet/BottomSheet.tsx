@@ -1,4 +1,4 @@
-import invariant from 'invariant';
+import { invariant } from "../../utilities/invariant";
 import React, {
   forwardRef,
   memo,
@@ -6,9 +6,9 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
-} from 'react';
-import { Platform, StyleSheet } from 'react-native';
-import { State } from 'react-native-gesture-handler';
+} from "react";
+import { Platform, StyleSheet } from "react-native";
+import { State } from "react-native-gesture-handler";
 import Animated, {
   cancelAnimation,
   Extrapolation,
@@ -22,7 +22,7 @@ import Animated, {
   useSharedValue,
   type WithSpringConfig,
   type WithTimingConfig,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 import {
   ANIMATION_SOURCE,
   ANIMATION_STATUS,
@@ -33,11 +33,11 @@ import {
   KEYBOARD_STATUS,
   SHEET_STATE,
   SNAP_POINT_TYPE,
-} from '../../constants';
+} from "../../constants";
 import {
   BottomSheetInternalProvider,
   BottomSheetProvider,
-} from '../../contexts';
+} from "../../contexts";
 import {
   useAnimatedDetents,
   useAnimatedKeyboard,
@@ -46,25 +46,25 @@ import {
   useReactiveSharedValue,
   useScrollable,
   useStableCallback,
-} from '../../hooks';
-import type { AnimationState, BottomSheetMethods } from '../../types';
+} from "../../hooks";
+import type { AnimationState, BottomSheetMethods } from "../../types";
 import {
   animate,
   getKeyboardAnimationConfigs,
   normalizeSnapPoint,
   print,
-} from '../../utilities';
-import { BottomSheetBackgroundContainer } from '../bottomSheetBackground';
+} from "../../utilities";
+import { BottomSheetBackgroundContainer } from "../bottomSheetBackground";
 // import BottomSheetDebugView from '../bottomSheetDebugView';
-import { BottomSheetFooterContainer } from '../bottomSheetFooter';
-import BottomSheetGestureHandlersProvider from '../bottomSheetGestureHandlersProvider';
+import { BottomSheetFooterContainer } from "../bottomSheetFooter";
+import BottomSheetGestureHandlersProvider from "../bottomSheetGestureHandlersProvider";
 import {
   BottomSheetHandle,
   BottomSheetHandleContainer,
-} from '../bottomSheetHandle';
-import { BottomSheetHostingContainer } from '../bottomSheetHostingContainer';
-import { BottomSheetBody } from './BottomSheetBody';
-import { BottomSheetContent } from './BottomSheetContent';
+} from "../bottomSheetHandle";
+import { BottomSheetHostingContainer } from "../bottomSheetHostingContainer";
+import { BottomSheetBody } from "./BottomSheetBody";
+import { BottomSheetContent } from "./BottomSheetContent";
 import {
   DEFAULT_ACCESSIBILITY_LABEL,
   DEFAULT_ACCESSIBILITY_ROLE,
@@ -82,16 +82,16 @@ import {
   DEFAULT_OVER_DRAG_RESISTANCE_FACTOR,
   INITIAL_POSITION,
   INITIAL_VALUE,
-} from './constants';
-import type { AnimateToPositionType, BottomSheetProps } from './types';
+} from "./constants";
+import type { AnimateToPositionType, BottomSheetProps } from "./types";
 
 Animated.addWhitelistedUIProps({
   decelerationRate: true,
 });
 
-type BottomSheet = BottomSheetMethods;
+type BottomSheetRef = BottomSheetMethods;
 
-const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+const BottomSheetComponent = forwardRef<BottomSheetRef, BottomSheetProps>(
   function BottomSheet(props, ref) {
     //#region extract props
     const {
@@ -174,6 +174,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
     //#region validate props
     if (__DEV__) {
       // biome-ignore lint/correctness/useHookAtTopLevel: used in development only.
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       usePropsValidator({
         index: _providedIndex,
         snapPoints: _providedSnapPoints,
@@ -192,7 +193,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       topInset,
       bottomInset,
       $modal,
-      handleComponent === null
+      handleComponent === null,
     );
     const animatedDetentsState = useAnimatedDetents(
       _providedSnapPoints,
@@ -201,7 +202,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       maxDynamicContentSize,
       detached,
       $modal,
-      bottomInset
+      bottomInset,
     );
     const animatedSheetHeight = useDerivedValue(() => {
       const { containerHeight } = animatedLayoutState.get();
@@ -214,13 +215,13 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       return containerHeight - highestDetentPosition;
     }, [animatedLayoutState, animatedDetentsState]);
     const animatedCurrentIndex = useReactiveSharedValue(
-      animateOnMount ? -1 : _providedIndex
+      animateOnMount ? -1 : _providedIndex,
     );
     const animatedPosition = useSharedValue(INITIAL_POSITION);
 
     // conditional
     const isAnimatedOnMount = useSharedValue(
-      !animateOnMount || _providedIndex === -1
+      !animateOnMount || _providedIndex === -1,
     );
     const isLayoutCalculated = useDerivedValue(() => {
       let isContainerHeightCalculated = false;
@@ -262,10 +263,10 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
 
     // gesture
     const animatedContentGestureState = useSharedValue<State>(
-      State.UNDETERMINED
+      State.UNDETERMINED,
     );
     const animatedHandleGestureState = useSharedValue<State>(
-      State.UNDETERMINED
+      State.UNDETERMINED,
     );
     //#endregion
 
@@ -318,7 +319,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       const extendedPositionWithKeyboard = Math.max(
         0,
         containerHeight -
-          (animatedSheetHeight.value + keyboardHeightInContainer)
+          (animatedSheetHeight.value + keyboardHeightInContainer),
       );
 
       // detect if keyboard is open and the sheet is in temporary position
@@ -359,7 +360,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       enableContentPanningGesture,
       animatedSheetState,
       animatedKeyboardState,
-      animatedAnimationState
+      animatedAnimationState,
     );
     // dynamic
     const animatedIndex = useDerivedValue(() => {
@@ -386,7 +387,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
             animatedPosition.value,
             adjustedSnapPoints,
             adjustedSnapPointsIndexes,
-            Extrapolation.CLAMP
+            Extrapolation.CLAMP,
           )
         : -1;
 
@@ -440,9 +441,9 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       function handleOnChange(index: number, position: number) {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleOnChange',
-            category: 'callback',
+            component: "BottomSheet",
+            method: "handleOnChange",
+            category: "callback",
             params: {
               index,
               position,
@@ -461,18 +462,18 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           position,
           index === dynamicDetentIndex
             ? SNAP_POINT_TYPE.DYNAMIC
-            : SNAP_POINT_TYPE.PROVIDED
+            : SNAP_POINT_TYPE.PROVIDED,
         );
       },
-      [_providedOnChange, animatedDetentsState]
+      [_providedOnChange, animatedDetentsState],
     );
     const handleOnAnimate = useCallback(
       function handleOnAnimate(targetIndex: number, targetPosition: number) {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleOnAnimate',
-            category: 'callback',
+            component: "BottomSheet",
+            method: "handleOnAnimate",
+            category: "callback",
             params: {
               toIndex: targetIndex,
               toPosition: targetPosition,
@@ -494,18 +495,18 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           animatedCurrentIndex.value,
           targetIndex,
           animatedPosition.value,
-          targetPosition
+          targetPosition,
         );
       },
-      [_providedOnAnimate, animatedCurrentIndex, animatedPosition]
+      [_providedOnAnimate, animatedCurrentIndex, animatedPosition],
     );
     const handleOnClose = useCallback(
       function handleOnClose() {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleOnClose',
-            category: 'callback',
+            component: "BottomSheet",
+            method: "handleOnClose",
+            category: "callback",
           });
         }
 
@@ -515,13 +516,13 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
 
         _providedOnClose();
       },
-      [_providedOnClose]
+      [_providedOnClose],
     );
     //#endregion
 
     //#region animation
     const stopAnimation = useCallback(() => {
-      'worklet';
+      "worklet";
       cancelAnimation(animatedPosition);
       animatedAnimationState.set({
         status: ANIMATION_STATUS.STOPPED,
@@ -530,7 +531,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
     }, [animatedPosition, animatedAnimationState]);
     const animateToPositionCompleted = useCallback(
       function animateToPositionCompleted(isFinished?: boolean) {
-        'worklet';
+        "worklet";
         if (!isFinished) {
           return;
         }
@@ -539,8 +540,8 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
 
         if (__DEV__) {
           runOnJS(print)({
-            component: 'BottomSheet',
-            method: 'animateToPositionCompleted',
+            component: "BottomSheet",
+            method: "animateToPositionCompleted",
             params: {
               currentIndex: animatedCurrentIndex.value,
               nextIndex,
@@ -582,20 +583,20 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         animatedAnimationState,
         animatedContainerHeightDidChange,
         isAnimatedOnMount,
-      ]
+      ],
     );
     const animateToPosition: AnimateToPositionType = useCallback(
       function animateToPosition(
         position: number,
         source: ANIMATION_SOURCE,
         velocity = 0,
-        configs?: WithTimingConfig | WithSpringConfig
+        configs?: WithTimingConfig | WithSpringConfig,
       ) {
-        'worklet';
+        "worklet";
         if (__DEV__) {
           runOnJS(print)({
-            component: 'BottomSheet',
-            method: 'animateToPosition',
+            component: "BottomSheet",
+            method: "animateToPosition",
             params: {
               currentPosition: animatedPosition.value,
               nextPosition: position,
@@ -665,8 +666,8 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         /**
          * set the animation state
          */
-        animatedAnimationState.set(state => {
-          'worklet';
+        animatedAnimationState.set((state) => {
+          "worklet";
           return {
             ...state,
             status: ANIMATION_STATUS.RUNNING,
@@ -704,7 +705,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         animatedKeyboardState,
         animatedPosition,
         animatedSheetState,
-      ]
+      ],
     );
     /**
      * Set to position without animation.
@@ -713,7 +714,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
      */
     const setToPosition = useCallback(
       function setToPosition(targetPosition: number) {
-        'worklet';
+        "worklet";
         if (!targetPosition) {
           return;
         }
@@ -736,8 +737,8 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
 
         if (__DEV__) {
           runOnJS(print)({
-            component: 'BottomSheet',
-            method: 'setToPosition',
+            component: "BottomSheet",
+            method: "setToPosition",
             params: {
               currentPosition: animatedPosition.value,
               targetPosition,
@@ -750,8 +751,8 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
          */
         const { detents } = animatedDetentsState.get();
         const index = detents?.indexOf(targetPosition) ?? -1;
-        animatedAnimationState.set(state => {
-          'worklet';
+        animatedAnimationState.set((state) => {
+          "worklet";
           return {
             ...state,
             nextPosition: targetPosition,
@@ -771,7 +772,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         animatedContainerHeightDidChange,
         animatedAnimationState,
         animatedDetentsState,
-      ]
+      ],
     );
     //#endregion
 
@@ -782,7 +783,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
      */
     const getEvaluatedPosition = useCallback(
       function getEvaluatedPosition(source: ANIMATION_SOURCE) {
-        'worklet';
+        "worklet";
         const currentIndex = animatedCurrentIndex.value;
         const { detents, highestDetentPosition, closedDetentPosition } =
           animatedDetentsState.get();
@@ -845,8 +846,8 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           // ensure that this logic does not run on android
           // with resize input mode
           !(
-            Platform.OS === 'android' &&
-            android_keyboardInputMode === 'adjustResize'
+            Platform.OS === "android" &&
+            android_keyboardInputMode === "adjustResize"
           )
         ) {
           isInTemporaryPosition.value = true;
@@ -912,7 +913,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         keyboardBlurBehavior,
         _providedIndex,
         android_keyboardInputMode,
-      ]
+      ],
     );
 
     /**
@@ -921,9 +922,9 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
     const evaluatePosition = useCallback(
       function evaluatePosition(
         source: ANIMATION_SOURCE,
-        animationConfigs?: WithSpringConfig | WithTimingConfig
+        animationConfigs?: WithSpringConfig | WithTimingConfig,
       ) {
-        'worklet';
+        "worklet";
         const {
           status: animationStatus,
           nextIndex,
@@ -971,7 +972,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
               proposedPosition,
               ANIMATION_SOURCE.MOUNT,
               undefined,
-              animationConfigs
+              animationConfigs,
             );
           } else {
             setToPosition(proposedPosition);
@@ -1004,7 +1005,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
               detents[nextPositionIndex],
               source,
               undefined,
-              animationConfigs
+              animationConfigs,
             );
             return;
           }
@@ -1048,7 +1049,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           proposedPosition,
           source,
           undefined,
-          animationConfigs
+          animationConfigs,
         );
       },
       [
@@ -1066,14 +1067,14 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         isAnimatedOnMount,
         isInTemporaryPosition,
         isLayoutCalculated,
-      ]
+      ],
     );
     //#endregion
 
     //#region public methods
     const handleSnapToIndex = useStableCallback(function handleSnapToIndex(
       index: number,
-      animationConfigs?: WithSpringConfig | WithTimingConfig
+      animationConfigs?: WithSpringConfig | WithTimingConfig,
     ) {
       const { detents } = animatedDetentsState.get();
       const isLayoutReady = isLayoutCalculated.get();
@@ -1091,13 +1092,13 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         index >= -1 && index <= detents.length - 1,
         `'index' was provided but out of the provided snap points range! expected value to be between -1, ${
           detents.length - 1
-        }`
+        }`,
       );
 
       if (__DEV__) {
         print({
-          component: 'BottomSheet',
-          method: 'handleSnapToIndex',
+          component: "BottomSheet",
+          method: "handleSnapToIndex",
           params: {
             index,
           },
@@ -1132,19 +1133,19 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         targetPosition,
         ANIMATION_SOURCE.USER,
         0,
-        animationConfigs
+        animationConfigs,
       );
     });
     const handleSnapToPosition = useCallback(
       function handleSnapToPosition(
         position: number | string,
-        animationConfigs?: WithSpringConfig | WithTimingConfig
+        animationConfigs?: WithSpringConfig | WithTimingConfig,
       ) {
-        'worklet';
+        "worklet";
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleSnapToPosition',
+            component: "BottomSheet",
+            method: "handleSnapToPosition",
             params: {
               position,
             },
@@ -1181,7 +1182,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           targetPosition,
           ANIMATION_SOURCE.USER,
           0,
-          animationConfigs
+          animationConfigs,
         );
       },
       [
@@ -1190,16 +1191,16 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         isLayoutCalculated,
         animatedLayoutState,
         animatedAnimationState,
-      ]
+      ],
     );
     const handleClose = useCallback(
       function handleClose(
-        animationConfigs?: WithSpringConfig | WithTimingConfig
+        animationConfigs?: WithSpringConfig | WithTimingConfig,
       ) {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleClose',
+            component: "BottomSheet",
+            method: "handleClose",
           });
         }
 
@@ -1235,7 +1236,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           targetPosition,
           ANIMATION_SOURCE.USER,
           0,
-          animationConfigs
+          animationConfigs,
         );
       },
       [
@@ -1244,16 +1245,16 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         isInTemporaryPosition,
         animatedDetentsState,
         animatedAnimationState,
-      ]
+      ],
     );
     const handleForceClose = useCallback(
       function handleForceClose(
-        animationConfigs?: WithSpringConfig | WithTimingConfig
+        animationConfigs?: WithSpringConfig | WithTimingConfig,
       ) {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleForceClose',
+            component: "BottomSheet",
+            method: "handleForceClose",
           });
         }
 
@@ -1283,8 +1284,8 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         /**
          * set force closing variable.
          */
-        animatedAnimationState.set(state => {
-          'worklet';
+        animatedAnimationState.set((state) => {
+          "worklet";
           return {
             ...state,
             isForcedClosing: true,
@@ -1295,7 +1296,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           targetPosition,
           ANIMATION_SOURCE.USER,
           0,
-          animationConfigs
+          animationConfigs,
         );
       },
       [
@@ -1303,16 +1304,16 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         isInTemporaryPosition,
         animatedDetentsState,
         animatedAnimationState,
-      ]
+      ],
     );
     const handleExpand = useCallback(
       function handleExpand(
-        animationConfigs?: WithSpringConfig | WithTimingConfig
+        animationConfigs?: WithSpringConfig | WithTimingConfig,
       ) {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleExpand',
+            component: "BottomSheet",
+            method: "handleExpand",
           });
         }
 
@@ -1350,7 +1351,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           targetPosition,
           ANIMATION_SOURCE.USER,
           0,
-          animationConfigs
+          animationConfigs,
         );
       },
       [
@@ -1359,16 +1360,16 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         isLayoutCalculated,
         animatedDetentsState,
         animatedAnimationState,
-      ]
+      ],
     );
     const handleCollapse = useCallback(
       function handleCollapse(
-        animationConfigs?: WithSpringConfig | WithTimingConfig
+        animationConfigs?: WithSpringConfig | WithTimingConfig,
       ) {
         if (__DEV__) {
           print({
-            component: 'BottomSheet',
-            method: 'handleCollapse',
+            component: "BottomSheet",
+            method: "handleCollapse",
           });
         }
 
@@ -1405,7 +1406,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           targetPosition,
           ANIMATION_SOURCE.USER,
           0,
-          animationConfigs
+          animationConfigs,
         );
       },
       [
@@ -1414,7 +1415,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         isInTemporaryPosition,
         animatedDetentsState,
         animatedAnimationState,
-      ]
+      ],
     );
 
     useImperativeHandle(ref, () => ({
@@ -1492,7 +1493,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         removeScrollableRef,
         animateToPosition,
         stopAnimation,
-      ]
+      ],
     );
     const externalContextVariables = useMemo(
       () => ({
@@ -1514,7 +1515,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         handleCollapse,
         handleClose,
         handleForceClose,
-      ]
+      ],
     );
     //#endregion
 
@@ -1558,7 +1559,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         animatedContainerHeightDidChange,
         animatedAnimationState,
         animatedDetentsState,
-      ]
+      ],
     );
 
     /**
@@ -1590,9 +1591,9 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
 
         if (__DEV__) {
           runOnJS(print)({
-            component: 'BottomSheet',
-            method: 'useAnimatedReaction::OnSnapPointChange',
-            category: 'effect',
+            component: "BottomSheet",
+            method: "useAnimatedReaction::OnSnapPointChange",
+            category: "effect",
             params: {
               result,
             },
@@ -1601,7 +1602,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
 
         evaluatePosition(ANIMATION_SOURCE.SNAP_POINT_CHANGE);
       },
-      [isLayoutCalculated, isAnimatedOnMount, animatedDetentsState]
+      [isLayoutCalculated, isAnimatedOnMount, animatedDetentsState],
     );
 
     /**
@@ -1652,15 +1653,15 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
             ? 0
             : $modal
               ? Math.abs(
-                  height - Math.abs(bottomInset - containerOffset.bottom)
+                  height - Math.abs(bottomInset - containerOffset.bottom),
                 )
               : Math.abs(height - containerOffset.bottom);
 
         if (__DEV__) {
           runOnJS(print)({
-            component: 'BottomSheet',
-            method: 'useAnimatedReaction::OnKeyboardStateChange',
-            category: 'effect',
+            component: "BottomSheet",
+            method: "useAnimatedReaction::OnKeyboardStateChange",
+            category: "effect",
             params: {
               status,
               height,
@@ -1674,7 +1675,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
          * if platform is android and the input mode is resize, then exit the method
          */
         if (
-          Platform.OS === 'android' &&
+          Platform.OS === "android" &&
           android_keyboardInputMode === KEYBOARD_INPUT_MODE.adjustResize
         ) {
           heightWithinContainer = 0;
@@ -1691,7 +1692,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
             return;
           }
         }
-        animatedKeyboardState.set(state => ({
+        animatedKeyboardState.set((state) => ({
           ...state,
           heightWithinContainer,
         }));
@@ -1730,7 +1731,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         animatedKeyboardState,
         animatedLayoutState,
         getEvaluatedPosition,
-      ]
+      ],
     );
 
     /**
@@ -1738,12 +1739,12 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
      */
     useAnimatedReaction(
       () => animatedPosition.value,
-      _animatedPosition => {
+      (_animatedPosition) => {
         if (_providedAnimatedPosition) {
           _providedAnimatedPosition.value = _animatedPosition + topInset;
         }
       },
-      [_providedAnimatedPosition, topInset]
+      [_providedAnimatedPosition, topInset],
     );
 
     /**
@@ -1751,12 +1752,12 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
      */
     useAnimatedReaction(
       () => animatedIndex.value,
-      _animatedIndex => {
+      (_animatedIndex) => {
         if (_providedAnimatedIndex) {
           _providedAnimatedIndex.value = _animatedIndex;
         }
       },
-      [_providedAnimatedIndex]
+      [_providedAnimatedIndex],
     );
 
     /**
@@ -1856,10 +1857,10 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
         </BottomSheetInternalProvider>
       </BottomSheetProvider>
     );
-  }
+  },
 );
 
 const BottomSheet = memo(BottomSheetComponent);
-BottomSheet.displayName = 'BottomSheet';
+BottomSheet.displayName = "BottomSheet";
 
 export default BottomSheet;

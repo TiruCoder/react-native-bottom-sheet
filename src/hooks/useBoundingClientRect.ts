@@ -1,6 +1,6 @@
-import { type RefObject, useLayoutEffect } from 'react';
-import type { View } from 'react-native';
-import { isFabricInstalled } from '../utilities/isFabricInstalled';
+import { type RefObject, useLayoutEffect } from "react";
+import type { View } from "react-native";
+import { isFabricInstalled } from "../utilities/isFabricInstalled";
 
 export type BoundingClientRect = {
   x: number;
@@ -43,7 +43,7 @@ export type BoundingClientRect = {
  */
 export function useBoundingClientRect(
   ref: RefObject<View | null>,
-  handler: (layout: BoundingClientRect) => void
+  handler: (layout: BoundingClientRect) => void,
 ) {
   if (!isFabricInstalled()) {
     return;
@@ -59,7 +59,7 @@ export function useBoundingClientRect(
       // @ts-expect-error 👉 https://github.com/facebook/react/commit/53b1f69ba
       ref.current.unstable_getBoundingClientRect !== null &&
       // @ts-expect-error 👉 https://github.com/facebook/react/commit/53b1f69ba
-      typeof ref.current.unstable_getBoundingClientRect === 'function'
+      typeof ref.current.unstable_getBoundingClientRect === "function"
     ) {
       // @ts-expect-error https://github.com/facebook/react/commit/53b1f69ba
       const layout = ref.current.unstable_getBoundingClientRect();

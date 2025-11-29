@@ -3,15 +3,15 @@
  */
 export const normalizeSnapPoint = (
   snapPoint: number | string,
-  containerHeight: number
+  containerHeight: number,
 ) => {
-  'worklet';
+  "worklet";
   let normalizedSnapPoint = snapPoint;
 
   // percentage snap point
-  if (typeof normalizedSnapPoint === 'string') {
+  if (typeof normalizedSnapPoint === "string") {
     normalizedSnapPoint =
-      (Number(normalizedSnapPoint.split('%')[0]) * containerHeight) / 100;
+      (Number(normalizedSnapPoint.split("%")[0]) * containerHeight) / 100;
   }
   return Math.max(0, containerHeight - normalizedSnapPoint);
 };

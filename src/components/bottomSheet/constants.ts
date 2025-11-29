@@ -3,7 +3,7 @@ import {
   KEYBOARD_BLUR_BEHAVIOR,
   KEYBOARD_INPUT_MODE,
   SCREEN_HEIGHT,
-} from '../../constants';
+} from "../../constants";
 
 // default values
 const DEFAULT_HANDLE_HEIGHT = 24;
@@ -29,8 +29,8 @@ const INITIAL_POSITION = SCREEN_HEIGHT;
 
 // accessibility
 const DEFAULT_ACCESSIBLE = true;
-const DEFAULT_ACCESSIBILITY_LABEL = 'Bottom Sheet';
-const DEFAULT_ACCESSIBILITY_ROLE = 'adjustable';
+const DEFAULT_ACCESSIBILITY_LABEL = "Bottom Sheet";
+const DEFAULT_ACCESSIBILITY_ROLE = "adjustable";
 
 export {
   DEFAULT_HANDLE_HEIGHT,

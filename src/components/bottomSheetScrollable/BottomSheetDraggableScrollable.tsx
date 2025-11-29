@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import {
   GestureDetector,
   type SimultaneousGesture,
-} from 'react-native-gesture-handler';
+} from "react-native-gesture-handler";
 
 interface BottomSheetDraggableScrollableProps {
   scrollableGesture?: SimultaneousGesture;

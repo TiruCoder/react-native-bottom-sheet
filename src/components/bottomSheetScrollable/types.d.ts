@@ -4,7 +4,7 @@ import type {
   ReactNode,
   Ref,
   RefObject,
-} from 'react';
+} from "react";
 import type {
   FlatListProps,
   NodeHandle,
@@ -15,9 +15,9 @@ import type {
   SectionListScrollParams,
   View,
   VirtualizedListProps,
-} from 'react-native';
-import type Animated from 'react-native-reanimated';
-import type { ScrollEventsHandlersHookType } from '../../types';
+} from "react-native";
+import type Animated from "react-native-reanimated";
+import type { ScrollEventsHandlersHookType } from "../../types";
 
 export interface BottomSheetScrollableProps {
   /**
@@ -57,7 +57,7 @@ export type ScrollableProps<T> =
 //#region FlatList
 export type BottomSheetFlatListProps<T> = Omit<
   Animated.AnimateProps<FlatListProps<T>>,
-  'decelerationRate' | 'onScroll' | 'scrollEventThrottle'
+  "decelerationRate" | "onScroll" | "scrollEventThrottle"
 > &
   BottomSheetScrollableProps & {
     ref?: Ref<BottomSheetFlatListMethods>;
@@ -137,7 +137,7 @@ export interface BottomSheetFlatListMethods {
 //#region ScrollView
 export type BottomSheetScrollViewProps = Omit<
   Animated.AnimateProps<ScrollViewProps>,
-  'decelerationRate' | 'scrollEventThrottle'
+  "decelerationRate" | "scrollEventThrottle"
 > &
   BottomSheetScrollableProps & {
     ref?: Ref<BottomSheetScrollViewMethods>;
@@ -158,7 +158,7 @@ export interface BottomSheetScrollViewMethods {
   scrollTo(
     y?: number | { x?: number; y?: number; animated?: boolean },
     x?: number,
-    animated?: boolean
+    animated?: boolean,
   ): void;
 
   /**
@@ -203,7 +203,7 @@ export interface BottomSheetScrollViewMethods {
 //#region SectionList
 export type BottomSheetSectionListProps<ItemT, SectionT> = Omit<
   Animated.AnimateProps<SectionListProps<ItemT, SectionT>>,
-  'decelerationRate' | 'scrollEventThrottle'
+  "decelerationRate" | "scrollEventThrottle"
 > &
   BottomSheetScrollableProps & {
     ref?: Ref<BottomSheetSectionListMethods>;
@@ -246,7 +246,7 @@ export interface BottomSheetSectionListMethods {
 //#region
 export type BottomSheetVirtualizedListProps<T> = Omit<
   Animated.AnimateProps<VirtualizedListProps<T>>,
-  'decelerationRate' | 'scrollEventThrottle'
+  "decelerationRate" | "scrollEventThrottle"
 > &
   BottomSheetScrollableProps & {
     ref?: Ref<BottomSheetVirtualizedListMethods>;

@@ -1,10 +1,10 @@
-import { type RefObject, createContext } from 'react';
-import type { SharedValue } from 'react-native-reanimated';
+import { type RefObject, createContext } from "react";
+import type { SharedValue } from "react-native-reanimated";
 import type {
   BottomSheetModalPrivateMethods,
   BottomSheetModalStackBehavior,
-} from '../../components/bottomSheetModal';
-import type { ContainerLayoutState } from '../../types';
+} from "../../components/bottomSheetModal";
+import type { ContainerLayoutState } from "../../types";
 
 export interface BottomSheetModalInternalContextType {
   hostName: string;
@@ -12,7 +12,7 @@ export interface BottomSheetModalInternalContextType {
   mountSheet: (
     key: string,
     ref: RefObject<BottomSheetModalPrivateMethods>,
-    stackBehavior: BottomSheetModalStackBehavior
+    stackBehavior: BottomSheetModalStackBehavior,
   ) => void;
   unmountSheet: (key: string) => void;
   willUnmountSheet: (key: string) => void;

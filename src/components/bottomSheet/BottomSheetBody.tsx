@@ -1,12 +1,12 @@
-import React, { memo, useMemo } from 'react';
-import { Platform } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
-import { useBottomSheetInternal } from '../../hooks';
-import type { BottomSheetProps } from '../bottomSheet/types';
-import { styles } from './styles';
+import React, { memo, useMemo } from "react";
+import { Platform } from "react-native";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { useBottomSheetInternal } from "../../hooks";
+import type { BottomSheetProps } from "../bottomSheet/types";
+import { styles } from "./styles";
 
 type BottomSheetBodyProps = {
-  style?: BottomSheetProps['style'];
+  style?: BottomSheetProps["style"];
   children?: React.ReactNode;
 };
 
@@ -18,18 +18,18 @@ function BottomSheetBodyComponent({ style, children }: BottomSheetBodyProps) {
   //#region styles
   const containerAnimatedStyle = useAnimatedStyle(
     () => ({
-      opacity: Platform.OS === 'android' && animatedIndex.get() === -1 ? 0 : 1,
+      opacity: Platform.OS === "android" && animatedIndex.get() === -1 ? 0 : 1,
       transform: [
         {
           translateY: animatedPosition.get(),
         },
       ],
     }),
-    [animatedPosition, animatedIndex]
+    [animatedPosition, animatedIndex],
   );
   const containerStyle = useMemo(
     () => [style, styles.container, containerAnimatedStyle],
-    [style, containerAnimatedStyle]
+    [style, containerAnimatedStyle],
   );
   //#endregion
 
@@ -41,4 +41,4 @@ function BottomSheetBodyComponent({ style, children }: BottomSheetBodyProps) {
 }
 
 export const BottomSheetBody = memo(BottomSheetBodyComponent);
-BottomSheetBody.displayName = 'BottomSheetBody';
+BottomSheetBody.displayName = "BottomSheetBody";

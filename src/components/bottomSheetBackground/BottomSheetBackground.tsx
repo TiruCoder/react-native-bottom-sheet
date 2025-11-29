@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { View } from 'react-native';
-import { styles } from './styles';
-import type { BottomSheetBackgroundProps } from './types';
+import React, { memo } from "react";
+import { View } from "react-native";
+import { styles } from "./styles";
+import type { BottomSheetBackgroundProps } from "./types";
 
 const BottomSheetBackgroundComponent = ({
   pointerEvents,
@@ -17,4 +17,4 @@ const BottomSheetBackgroundComponent = ({
 );
 
 export const BottomSheetBackground = memo(BottomSheetBackgroundComponent);
-BottomSheetBackground.displayName = 'BottomSheetBackground';
+BottomSheetBackground.displayName = "BottomSheetBackground";

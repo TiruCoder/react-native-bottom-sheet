@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
-import type { EasingFunction } from 'react-native';
+import { useMemo } from "react";
+import type { EasingFunction } from "react-native";
 import type {
   EasingFunctionFactory,
   ReduceMotion,
-} from 'react-native-reanimated';
-import { ANIMATION_DURATION, ANIMATION_EASING } from '../constants';
+} from "react-native-reanimated";
+import { ANIMATION_DURATION, ANIMATION_EASING } from "../constants";
 
 /**
  * this is needed to avoid TS4023

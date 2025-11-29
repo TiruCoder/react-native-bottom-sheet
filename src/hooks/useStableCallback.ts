@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 
 type Callback<T extends unknown[], R> = (...args: T) => R;
 
@@ -6,9 +6,9 @@ type Callback<T extends unknown[], R> = (...args: T) => R;
  * Provide a stable version of useCallback.
  */
 export function useStableCallback<T extends unknown[], R>(
-  callback: Callback<T, R>
+  callback: Callback<T, R>,
 ) {
-  const callbackRef = useRef<Callback<T, R>>();
+  const callbackRef = useRef<Callback<T, R> | null>(null);
 
   useLayoutEffect(() => {
     callbackRef.current = callback;
@@ -16,7 +16,7 @@ export function useStableCallback<T extends unknown[], R>(
 
   useEffect(() => {
     return () => {
-      callbackRef.current = undefined;
+      callbackRef.current = null;
     };
   }, []);
 

@@ -1,6 +1,6 @@
 interface PrintOptions {
   component?: string;
-  category?: 'layout' | 'effect' | 'callback';
+  category?: "layout" | "effect" | "callback";
   method?: string;
   params?: Record<string, unknown> | string | number | boolean;
 }
@@ -8,11 +8,11 @@ interface PrintOptions {
 type Print = (options: PrintOptions) => void;
 
 let _isLoggingEnabled = false;
-let _excludeCategories: PrintOptions['category'][] | undefined;
+let _excludeCategories: PrintOptions["category"][] | undefined;
 
-const enableLogging = (excludeCategories?: PrintOptions['category'][]) => {
+const enableLogging = (excludeCategories?: PrintOptions["category"][]) => {
   if (!__DEV__) {
-    console.warn('[BottomSheet] could not enable logging on production!');
+    console.warn("[BottomSheet] could not enable logging on production!");
     return;
   }
 
@@ -36,17 +36,17 @@ if (__DEV__) {
       return;
     }
 
-    let message = '';
+    let message = "";
 
-    if (typeof params === 'object') {
+    if (typeof params === "object") {
       message = Object.keys(params)
-        .map(key => `${key}:${params[key]}`)
-        .join(' ');
+        .map((key) => `${key}:${params[key]}`)
+        .join(" ");
     } else {
-      message = `${params ?? ''}`;
+      message = `${params ?? ""}`;
     }
     // biome-ignore lint/suspicious/noConsole: used for debugging
-    console.log(`[${[component, method].filter(Boolean).join('::')}]`, message);
+    console.log(`[${[component, method].filter(Boolean).join("::")}]`, message);
   };
 }
 

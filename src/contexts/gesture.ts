@@ -1,6 +1,6 @@
-import { createContext } from 'react';
-import type { Gesture } from 'react-native-gesture-handler/lib/typescript/handlers/gestures/gesture';
-import type { GestureHandlersHookType } from '../types';
+import { createContext } from "react";
+import type { Gesture } from "react-native-gesture-handler/lib/typescript/handlers/gestures/gesture";
+import type { GestureHandlersHookType } from "../types";
 
 export interface BottomSheetGestureHandlersContextType {
   contentPanGestureHandler: ReturnType<GestureHandlersHookType>;

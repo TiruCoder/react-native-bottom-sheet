@@ -1,16 +1,16 @@
-import { type ComponentProps, memo } from 'react';
-import { VirtualizedList as RNVirtualizedList } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { SCROLLABLE_TYPE } from '../../constants';
-import { createBottomSheetScrollableComponent } from './createBottomSheetScrollableComponent';
+import { type ComponentProps, memo } from "react";
+import { VirtualizedList as RNVirtualizedList } from "react-native";
+import Animated from "react-native-reanimated";
+import { SCROLLABLE_TYPE } from "../../constants";
+import { createBottomSheetScrollableComponent } from "./createBottomSheetScrollableComponent";
 import type {
   BottomSheetVirtualizedListMethods,
   BottomSheetVirtualizedListProps,
-} from './types';
+} from "./types";
 
 const AnimatedVirtualizedList =
   Animated.createAnimatedComponent<ComponentProps<typeof RNVirtualizedList>>(
-    RNVirtualizedList
+    RNVirtualizedList,
   );
 
 const BottomSheetVirtualizedListComponent =
@@ -20,8 +20,8 @@ const BottomSheetVirtualizedListComponent =
   >(SCROLLABLE_TYPE.VIRTUALIZEDLIST, AnimatedVirtualizedList);
 
 const BottomSheetVirtualizedList = memo(BottomSheetVirtualizedListComponent);
-BottomSheetVirtualizedList.displayName = 'BottomSheetVirtualizedList';
+BottomSheetVirtualizedList.displayName = "BottomSheetVirtualizedList";
 
 export default BottomSheetVirtualizedList as <T>(
-  props: BottomSheetVirtualizedListProps<T>
+  props: BottomSheetVirtualizedListProps<T>,
 ) => ReturnType<typeof BottomSheetVirtualizedList>;

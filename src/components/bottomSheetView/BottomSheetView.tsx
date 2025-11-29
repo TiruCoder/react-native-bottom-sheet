@@ -1,13 +1,13 @@
-import React, { memo, useEffect, useCallback, useMemo } from 'react';
-import { type LayoutChangeEvent, View } from 'react-native';
-import { SCROLLABLE_TYPE } from '../../constants';
+import React, { memo, useEffect, useCallback, useMemo } from "react";
+import { type LayoutChangeEvent, View } from "react-native";
+import { SCROLLABLE_TYPE } from "../../constants";
 import {
   useBottomSheetContentContainerStyle,
   useBottomSheetInternal,
-} from '../../hooks';
-import { print } from '../../utilities';
-import { styles } from './styles';
-import type { BottomSheetViewProps } from './types';
+} from "../../hooks";
+import { print } from "../../utilities";
+import { styles } from "./styles";
+import type { BottomSheetViewProps } from "./types";
 
 function BottomSheetViewComponent({
   focusHook: useFocusHook = useEffect,
@@ -25,17 +25,17 @@ function BottomSheetViewComponent({
   //#region styles
   const containerStyle = useBottomSheetContentContainerStyle(
     enableFooterMarginAdjustment,
-    _providedStyle
+    _providedStyle,
   );
   const style = useMemo(
     () => [containerStyle, styles.container],
-    [containerStyle]
+    [containerStyle],
   );
   //#endregion
 
   //#region callbacks
   const handleSettingScrollable = useCallback(() => {
-    animatedScrollableState.set(state => ({
+    animatedScrollableState.set((state) => ({
       ...state,
       contentOffsetY: 0,
       type: SCROLLABLE_TYPE.VIEW,
@@ -49,8 +49,8 @@ function BottomSheetViewComponent({
             layout: { height },
           },
         } = event;
-        animatedLayoutState.modify(state => {
-          'worklet';
+        animatedLayoutState.modify((state) => {
+          "worklet";
           state.contentHeight = height;
           return state;
         });
@@ -62,16 +62,16 @@ function BottomSheetViewComponent({
 
       if (__DEV__) {
         print({
-          component: 'BottomSheetView',
-          method: 'handleLayout',
-          category: 'layout',
+          component: "BottomSheetView",
+          method: "handleLayout",
+          category: "layout",
           params: {
             height: event.nativeEvent.layout.height,
           },
         });
       }
     },
-    [onLayout, animatedLayoutState, enableDynamicSizing]
+    [onLayout, animatedLayoutState, enableDynamicSizing],
   );
   //#endregion
 
@@ -88,6 +88,6 @@ function BottomSheetViewComponent({
 }
 
 const BottomSheetView = memo(BottomSheetViewComponent);
-BottomSheetView.displayName = 'BottomSheetView';
+BottomSheetView.displayName = "BottomSheetView";
 
 export default BottomSheetView;

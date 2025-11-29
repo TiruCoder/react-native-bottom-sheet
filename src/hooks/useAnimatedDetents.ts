@@ -1,8 +1,8 @@
-import { type SharedValue, useDerivedValue } from 'react-native-reanimated';
-import type { BottomSheetProps } from '../components/bottomSheet';
-import { INITIAL_LAYOUT_VALUE } from '../constants';
-import type { DetentsState, LayoutState } from '../types';
-import { normalizeSnapPoint } from '../utilities';
+import { type SharedValue, useDerivedValue } from "react-native-reanimated";
+import type { BottomSheetProps } from "../components/bottomSheet";
+import { INITIAL_LAYOUT_VALUE } from "../constants";
+import type { DetentsState, LayoutState } from "../types";
+import { normalizeSnapPoint } from "../utilities";
 
 /**
  * A custom hook that computes and returns the animated detent positions for a bottom sheet component.
@@ -20,13 +20,13 @@ import { normalizeSnapPoint } from '../utilities';
  * @param bottomInset - The bottom inset to apply when the sheet is modal or detached (default is 0).
  */
 export const useAnimatedDetents = (
-  detents: BottomSheetProps['snapPoints'],
+  detents: BottomSheetProps["snapPoints"],
   layoutState: SharedValue<LayoutState>,
-  enableDynamicSizing: BottomSheetProps['enableDynamicSizing'],
-  maxDynamicContentSize: BottomSheetProps['maxDynamicContentSize'],
-  detached: BottomSheetProps['detached'],
-  $modal: BottomSheetProps['$modal'],
-  bottomInset: BottomSheetProps['bottomInset'] = 0
+  enableDynamicSizing: BottomSheetProps["enableDynamicSizing"],
+  maxDynamicContentSize: BottomSheetProps["maxDynamicContentSize"],
+  detached: BottomSheetProps["detached"],
+  $modal: BottomSheetProps["$modal"],
+  bottomInset: BottomSheetProps["bottomInset"] = 0,
 ) => {
   const state = useDerivedValue<DetentsState>(() => {
     const { containerHeight, handleHeight, contentHeight } = layoutState.get();
@@ -38,15 +38,15 @@ export const useAnimatedDetents = (
 
     // extract detents from provided props
     const _detents = detents
-      ? 'value' in detents
+      ? "value" in detents
         ? detents.value
         : detents
       : [];
 
     // normalized all provided detents, converting percentage
     // values into absolute values.
-    let _normalizedDetents = _detents.map(snapPoint =>
-      normalizeSnapPoint(snapPoint, containerHeight)
+    let _normalizedDetents = _detents.map((snapPoint) =>
+      normalizeSnapPoint(snapPoint, containerHeight),
     ) as number[];
 
     let highestDetentPosition =
@@ -82,7 +82,7 @@ export const useAnimatedDetents = (
         contentHeight + handleHeight,
         maxDynamicContentSize !== undefined
           ? maxDynamicContentSize
-          : containerHeight
+          : containerHeight,
       );
 
     // push dynamic detent into the normalized detents,

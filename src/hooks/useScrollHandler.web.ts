@@ -1,9 +1,9 @@
-import { type TouchEvent, useEffect, useRef } from 'react';
-import { useSharedValue } from 'react-native-reanimated';
-import { ANIMATION_STATUS, SCROLLABLE_STATUS } from '../constants';
-import type { Scrollable, ScrollableEvent } from '../types';
-import { findNodeHandle } from '../utilities/findNodeHandle.web';
-import { useBottomSheetInternal } from './useBottomSheetInternal';
+import { type TouchEvent, useEffect, useRef } from "react";
+import { useSharedValue } from "react-native-reanimated";
+import { ANIMATION_STATUS, SCROLLABLE_STATUS } from "../constants";
+import type { Scrollable, ScrollableEvent } from "../types";
+import { findNodeHandle } from "../utilities/findNodeHandle.web";
+import { useBottomSheetInternal } from "./useBottomSheetInternal";
 
 export type ScrollEventContextType = {
   initialContentOffsetY: number;
@@ -79,7 +79,7 @@ export const useScrollHandler = (_: never, onScroll?: ScrollableEvent) => {
         element.scroll({
           top: 0,
           left: 0,
-          behavior: 'instant',
+          behavior: "instant",
         });
         scrollableContentOffsetY.value = lockPosition;
         return;
@@ -92,7 +92,7 @@ export const useScrollHandler = (_: never, onScroll?: ScrollableEvent) => {
       if (animatedAnimationState.get().status !== ANIMATION_STATUS.RUNNING) {
         const contentOffsetY = Math.max(0, scrollOffset);
         scrollableContentOffsetY.value = contentOffsetY;
-        animatedScrollableState.set(state => ({
+        animatedScrollableState.set((state) => ({
           ...state,
           contentOffsetY,
         }));
@@ -108,7 +108,7 @@ export const useScrollHandler = (_: never, onScroll?: ScrollableEvent) => {
 
     try {
       // @ts-ignore
-      window.addEventListener('test', null, {
+      window.addEventListener("test", null, {
         // @ts-ignore
         // biome-ignore lint: to be addressed
         get passive() {
@@ -118,52 +118,52 @@ export const useScrollHandler = (_: never, onScroll?: ScrollableEvent) => {
     } catch (_e) {}
 
     element.addEventListener(
-      'touchstart',
+      "touchstart",
       handleOnTouchStart,
       supportsPassive
         ? {
             passive: true,
           }
-        : false
+        : false,
     );
 
     element.addEventListener(
-      'touchmove',
+      "touchmove",
       handleOnTouchMove,
       supportsPassive
         ? {
             passive: false,
           }
-        : false
+        : false,
     );
 
     element.addEventListener(
-      'touchend',
+      "touchend",
       handleOnTouchEnd,
       supportsPassive
         ? {
             passive: false,
           }
-        : false
+        : false,
     );
 
     element.addEventListener(
-      'scroll',
+      "scroll",
       handleOnScroll,
       supportsPassive
         ? {
             passive: false,
           }
-        : false
+        : false,
     );
 
     return () => {
       // @ts-ignore
-      window.removeEventListener('test', null);
-      element.removeEventListener('touchstart', handleOnTouchStart);
-      element.removeEventListener('touchmove', handleOnTouchMove);
-      element.removeEventListener('touchend', handleOnTouchEnd);
-      element.removeEventListener('scroll', handleOnScroll);
+      window.removeEventListener("test", null);
+      element.removeEventListener("touchstart", handleOnTouchStart);
+      element.removeEventListener("touchmove", handleOnTouchMove);
+      element.removeEventListener("touchend", handleOnTouchEnd);
+      element.removeEventListener("scroll", handleOnScroll);
     };
   }, [
     animatedAnimationState,

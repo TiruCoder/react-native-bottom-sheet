@@ -1,12 +1,12 @@
-import { createContext, type RefObject } from 'react';
-import type { State } from 'react-native-gesture-handler';
-import type { SharedValue } from 'react-native-reanimated';
+import { createContext } from "react";
+import type { State } from "react-native-gesture-handler";
+import type { AnimatedRef, SharedValue } from "react-native-reanimated";
 import type {
   AnimateToPositionType,
   BottomSheetGestureProps,
   BottomSheetProps,
-} from '../components/bottomSheet/types';
-import type { SCROLLABLE_STATUS, SHEET_STATE } from '../constants';
+} from "../components/bottomSheet/types";
+import type { SCROLLABLE_STATUS, SHEET_STATE } from "../constants";
 import type {
   AnimationState,
   DetentsState,
@@ -15,19 +15,19 @@ import type {
   Scrollable,
   ScrollableRef,
   ScrollableState,
-} from '../types';
+} from "../types";
 
 export interface BottomSheetInternalContextType
   extends Partial<BottomSheetGestureProps>,
     Required<
       Pick<
         BottomSheetProps,
-        | 'enableContentPanningGesture'
-        | 'enableOverDrag'
-        | 'enablePanDownToClose'
-        | 'enableDynamicSizing'
-        | 'enableBlurKeyboardOnGesture'
-        | 'overDragResistanceFactor'
+        | "enableContentPanningGesture"
+        | "enableOverDrag"
+        | "enablePanDownToClose"
+        | "enableDynamicSizing"
+        | "enableBlurKeyboardOnGesture"
+        | "overDragResistanceFactor"
       >
     > {
   // animated states
@@ -53,7 +53,7 @@ export interface BottomSheetInternalContextType
   stopAnimation: () => void;
   animateToPosition: AnimateToPositionType;
   setScrollableRef: (ref: ScrollableRef) => void;
-  removeScrollableRef: (ref: RefObject<Scrollable>) => void;
+  removeScrollableRef: (ref: AnimatedRef<Scrollable>) => void;
 
   // refs
   textInputNodesRef: React.MutableRefObject<Set<number>>;

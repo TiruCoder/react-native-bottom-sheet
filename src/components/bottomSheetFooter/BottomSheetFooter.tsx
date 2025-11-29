@@ -1,15 +1,15 @@
-import React, { memo, useCallback, useMemo, useRef } from 'react';
-import type { LayoutChangeEvent } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
-import { KEYBOARD_STATUS } from '../../constants';
+import React, { memo, useCallback, useMemo, useRef } from "react";
+import type { LayoutChangeEvent } from "react-native";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { KEYBOARD_STATUS } from "../../constants";
 import {
   type BoundingClientRect,
   useBottomSheetInternal,
   useBoundingClientRect,
-} from '../../hooks';
-import { print } from '../../utilities';
-import { styles } from './styles';
-import type { BottomSheetDefaultFooterProps } from './types';
+} from "../../hooks";
+import { print } from "../../utilities";
+import { styles } from "./styles";
+import type { BottomSheetDefaultFooterProps } from "./types";
 
 function BottomSheetFooterComponent({
   animatedFooterPosition,
@@ -47,7 +47,7 @@ function BottomSheetFooterComponent({
   }, [bottomInset, animatedKeyboardState, animatedFooterPosition]);
   const containerStyle = useMemo(
     () => [styles.container, style, containerAnimatedStyle],
-    [style, containerAnimatedStyle]
+    [style, containerAnimatedStyle],
   );
   //#endregion
 
@@ -58,45 +58,45 @@ function BottomSheetFooterComponent({
         layout: { height },
       },
     }: LayoutChangeEvent) => {
-      animatedLayoutState.modify(state => {
-        'worklet';
+      animatedLayoutState.modify((state) => {
+        "worklet";
         state.footerHeight = height;
         return state;
       });
 
       if (__DEV__) {
         print({
-          component: 'BottomSheetFooter',
-          method: 'handleContainerLayout',
-          category: 'layout',
+          component: "BottomSheetFooter",
+          method: "handleContainerLayout",
+          category: "layout",
           params: {
             height,
           },
         });
       }
     },
-    [animatedLayoutState]
+    [animatedLayoutState],
   );
   const handleBoundingClientRect = useCallback(
     ({ height }: BoundingClientRect) => {
-      animatedLayoutState.modify(state => {
-        'worklet';
+      animatedLayoutState.modify((state) => {
+        "worklet";
         state.footerHeight = height;
         return state;
       });
 
       if (__DEV__) {
         print({
-          component: 'BottomSheetFooter',
-          method: 'handleBoundingClientRect',
-          category: 'layout',
+          component: "BottomSheetFooter",
+          method: "handleBoundingClientRect",
+          category: "layout",
           params: {
             height,
           },
         });
       }
     },
-    [animatedLayoutState]
+    [animatedLayoutState],
   );
   //#endregion
 
@@ -116,4 +116,4 @@ function BottomSheetFooterComponent({
 }
 
 export const BottomSheetFooter = memo(BottomSheetFooterComponent);
-BottomSheetFooter.displayName = 'BottomSheetFooter';
+BottomSheetFooter.displayName = "BottomSheetFooter";

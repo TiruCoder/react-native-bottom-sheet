@@ -2,14 +2,14 @@ import type {
   TouchableHighlight as RNTouchableHighlight,
   TouchableOpacity as RNTouchableOpacity,
   TouchableWithoutFeedback as RNTouchableWithoutFeedback,
-} from 'react-native';
+} from "react-native";
 
 import {
   TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
   // @ts-ignore
-} from './Touchables';
+} from "./Touchables";
 
 export default {
   TouchableOpacity: TouchableOpacity as never as typeof RNTouchableOpacity,

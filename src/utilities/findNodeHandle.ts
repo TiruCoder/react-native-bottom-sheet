@@ -1,1 +1,1 @@
-export { findNodeHandle } from 'react-native';
+export { findNodeHandle } from "react-native";

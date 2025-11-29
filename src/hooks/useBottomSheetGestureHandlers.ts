@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { BottomSheetGestureHandlersContext } from '../contexts/gesture';
+import { useContext } from "react";
+import { BottomSheetGestureHandlersContext } from "../contexts/gesture";
 
 export const useBottomSheetGestureHandlers = () => {
   const context = useContext(BottomSheetGestureHandlersContext);

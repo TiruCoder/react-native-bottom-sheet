@@ -1,19 +1,19 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 import {
   BottomSheetInternalContext,
   type BottomSheetInternalContextType,
-} from '../contexts/internal';
+} from "../contexts/internal";
 
 export function useBottomSheetInternal(
-  unsafe?: false
+  unsafe?: false,
 ): BottomSheetInternalContextType;
 
 export function useBottomSheetInternal(
-  unsafe: true
+  unsafe: true,
 ): BottomSheetInternalContextType | null;
 
 export function useBottomSheetInternal(
-  unsafe?: boolean
+  unsafe?: boolean,
 ): BottomSheetInternalContextType | null {
   const context = useContext(BottomSheetInternalContext);
 

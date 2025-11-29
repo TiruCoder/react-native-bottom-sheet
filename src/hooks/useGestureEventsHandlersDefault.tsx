@@ -1,20 +1,20 @@
-import { useCallback } from 'react';
-import { Keyboard, Platform } from 'react-native';
-import { runOnJS, useSharedValue } from 'react-native-reanimated';
+import { useCallback } from "react";
+import { Keyboard, Platform } from "react-native";
+import { runOnJS, useSharedValue } from "react-native-reanimated";
 import {
   ANIMATION_SOURCE,
   GESTURE_SOURCE,
   KEYBOARD_STATUS,
   SCROLLABLE_TYPE,
   WINDOW_HEIGHT,
-} from '../constants';
+} from "../constants";
 import type {
   GestureEventHandlerCallbackType,
   GestureEventsHandlersHookType,
-} from '../types';
-import { clamp } from '../utilities/clamp';
-import { snapPoint } from '../utilities/snapPoint';
-import { useBottomSheetInternal } from './useBottomSheetInternal';
+} from "../types";
+import { clamp } from "../utilities/clamp";
+import { snapPoint } from "../utilities/snapPoint";
+import { useBottomSheetInternal } from "./useBottomSheetInternal";
 
 type GestureEventContextType = {
   initialPosition: number;
@@ -32,8 +32,8 @@ const dismissKeyboard = Keyboard.dismiss;
 
 // biome-ignore lint: to be addressed!
 const resetContext = (context: any) => {
-  'worklet';
-  Object.keys(context).map(key => {
+  "worklet";
+  Object.keys(context).map((key) => {
     context[key] = undefined;
   });
 };
@@ -64,7 +64,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
     //#region gesture methods
     const handleOnStart: GestureEventHandlerCallbackType = useCallback(
       function handleOnStart(__, _) {
-        'worklet';
+        "worklet";
         // cancel current animation
         stopAnimation();
 
@@ -103,11 +103,11 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
         animatedPosition,
         animatedKeyboardState,
         animatedScrollableState,
-      ]
+      ],
     );
     const handleOnChange: GestureEventHandlerCallbackType = useCallback(
       function handleOnChange(source, { translationY }) {
-        'worklet';
+        "worklet";
         const { highestDetentPosition, detents } = animatedDetentsState.get();
         if (
           highestDetentPosition === undefined ||
@@ -191,7 +191,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
         const clampedPosition = clamp(
           accumulatedDraggedPosition,
           highestSnapPoint,
-          lowestSnapPoint
+          lowestSnapPoint,
         );
 
         /**
@@ -248,7 +248,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
                 1 +
                   (draggedPosition +
                     negativeScrollableContentOffset -
-                    lowestSnapPoint)
+                    lowestSnapPoint),
               ) *
                 overDragResistanceFactor;
             animatedPosition.value = resistedPosition;
@@ -268,11 +268,11 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
         animatedLayoutState,
         animatedPosition,
         context,
-      ]
+      ],
     );
     const handleOnEnd: GestureEventHandlerCallbackType = useCallback(
       function handleOnEnd(source, { translationY, absoluteY, velocityY }) {
-        'worklet';
+        "worklet";
         const { highestDetentPosition, detents, closedDetentPosition } =
           animatedDetentsState.get();
         if (
@@ -317,7 +317,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
             animateToPosition(
               context.value.initialPosition,
               ANIMATION_SOURCE.GESTURE,
-              velocityY / 2
+              velocityY / 2,
             );
           }
           return;
@@ -348,7 +348,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
            */
           if (
             !(
-              Platform.OS === 'ios' &&
+              Platform.OS === "ios" &&
               isScrollable &&
               absoluteY >
                 WINDOW_HEIGHT -
@@ -381,7 +381,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
         const destinationPoint = snapPoint(
           translationY + context.value.initialPosition,
           velocityY,
-          snapPoints
+          snapPoints,
         );
 
         /**
@@ -404,7 +404,7 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
         animateToPosition(
           destinationPoint,
           ANIMATION_SOURCE.GESTURE,
-          velocityY / 2
+          velocityY / 2,
         );
       },
       [
@@ -416,14 +416,14 @@ export const useGestureEventsHandlersDefault: GestureEventsHandlersHookType =
         animatedPosition,
         animateToPosition,
         context,
-      ]
+      ],
     );
     const handleOnFinalize: GestureEventHandlerCallbackType = useCallback(
       function handleOnFinalize() {
-        'worklet';
+        "worklet";
         resetContext(context);
       },
-      [context]
+      [context],
     );
     //#endregion
 

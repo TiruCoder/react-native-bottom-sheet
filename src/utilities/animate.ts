@@ -5,8 +5,8 @@ import {
   type WithTimingConfig,
   withSpring,
   withTiming,
-} from 'react-native-reanimated';
-import { ANIMATION_CONFIGS, ANIMATION_METHOD } from '../constants';
+} from "react-native-reanimated";
+import { ANIMATION_CONFIGS, ANIMATION_METHOD } from "../constants";
 
 interface AnimateParams {
   point: number;
@@ -23,7 +23,7 @@ export const animate = ({
   overrideReduceMotion,
   onComplete,
 }: AnimateParams) => {
-  'worklet';
+  "worklet";
 
   if (!configs) {
     configs = ANIMATION_CONFIGS;
@@ -40,7 +40,7 @@ export const animate = ({
 
   // detect animation type
   const type =
-    'duration' in configs || 'easing' in configs
+    "duration" in configs || "easing" in configs
       ? ANIMATION_METHOD.TIMING
       : ANIMATION_METHOD.SPRING;
 
@@ -51,6 +51,6 @@ export const animate = ({
   return withSpring(
     point,
     Object.assign({ velocity }, configs) as WithSpringConfig,
-    onComplete
+    onComplete,
   );
 };

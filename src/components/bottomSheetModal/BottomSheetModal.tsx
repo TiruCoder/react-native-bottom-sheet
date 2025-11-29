@@ -1,4 +1,4 @@
-import { Portal, usePortal } from '@gorhom/portal';
+import { Portal, usePortal } from "@gorhom/portal";
 import React, {
   forwardRef,
   memo,
@@ -8,22 +8,22 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from 'react';
-import type { SNAP_POINT_TYPE } from '../../constants';
-import { useBottomSheetModalInternal } from '../../hooks';
-import type { BottomSheetMethods, BottomSheetModalMethods } from '../../types';
-import { print } from '../../utilities';
-import { id } from '../../utilities/id';
-import BottomSheet from '../bottomSheet';
+} from "react";
+import type { SNAP_POINT_TYPE } from "../../constants";
+import { useBottomSheetModalInternal } from "../../hooks";
+import type { BottomSheetMethods, BottomSheetModalMethods } from "../../types";
+import { print } from "../../utilities";
+import { id } from "../../utilities/id";
+import BottomSheet from "../bottomSheet";
 import {
   DEFAULT_ENABLE_DISMISS_ON_CLOSE,
   DEFAULT_STACK_BEHAVIOR,
-} from './constants';
+} from "./constants";
 import type {
   BottomSheetModalPrivateMethods,
   BottomSheetModalProps,
   BottomSheetModalState,
-} from './types';
+} from "./types";
 
 const INITIAL_STATE: BottomSheetModalState = {
   mount: false,
@@ -31,12 +31,12 @@ const INITIAL_STATE: BottomSheetModalState = {
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: Using 'any' allows users to define their own strict types for 'data' property.
-type BottomSheetModal<T = any> = BottomSheetModalMethods<T>;
+type BottomSheetModalRef<T = any> = BottomSheetModalMethods<T>;
 
 // biome-ignore lint/suspicious/noExplicitAny: Using 'any' allows users to define their own strict types for 'data' property.
 function BottomSheetModalComponent<T = any>(
   props: BottomSheetModalProps<T>,
-  ref: React.ForwardedRef<BottomSheetModal<T>>
+  ref: React.ForwardedRef<BottomSheetModalRef<T>>,
 ) {
   const {
     // modal props
@@ -78,7 +78,7 @@ function BottomSheetModalComponent<T = any>(
   //#endregion
 
   //#region refs
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetRef = useRef<BottomSheetMethods>(null);
   const currentIndexRef = useRef(!animateOnMount ? index : -1);
   const nextIndexRef = useRef<number | null>(null);
   const restoreIndexRef = useRef(-1);
@@ -131,57 +131,57 @@ function BottomSheetModalComponent<T = any>(
         _providedOnDismiss();
       }
     },
-    [key, resetVariables, unmountSheet, unmountPortal, _providedOnDismiss]
+    [key, resetVariables, unmountSheet, unmountPortal, _providedOnDismiss],
   );
   //#endregion
 
   //#region bottom sheet methods
-  const handleSnapToIndex = useCallback<BottomSheetMethods['snapToIndex']>(
+  const handleSnapToIndex = useCallback<BottomSheetMethods["snapToIndex"]>(
     (...args) => {
       if (minimized.current) {
         return;
       }
       bottomSheetRef.current?.snapToIndex(...args);
     },
-    []
+    [],
   );
   const handleSnapToPosition = useCallback<
-    BottomSheetMethods['snapToPosition']
+    BottomSheetMethods["snapToPosition"]
   >((...args) => {
     if (minimized.current) {
       return;
     }
     bottomSheetRef.current?.snapToPosition(...args);
   }, []);
-  const handleExpand: BottomSheetMethods['expand'] = useCallback((...args) => {
+  const handleExpand: BottomSheetMethods["expand"] = useCallback((...args) => {
     if (minimized.current) {
       return;
     }
     bottomSheetRef.current?.expand(...args);
   }, []);
-  const handleCollapse: BottomSheetMethods['collapse'] = useCallback(
+  const handleCollapse: BottomSheetMethods["collapse"] = useCallback(
     (...args) => {
       if (minimized.current) {
         return;
       }
       bottomSheetRef.current?.collapse(...args);
     },
-    []
+    [],
   );
-  const handleClose: BottomSheetMethods['close'] = useCallback((...args) => {
+  const handleClose: BottomSheetMethods["close"] = useCallback((...args) => {
     if (minimized.current) {
       return;
     }
     bottomSheetRef.current?.close(...args);
   }, []);
-  const handleForceClose: BottomSheetMethods['forceClose'] = useCallback(
+  const handleForceClose: BottomSheetMethods["forceClose"] = useCallback(
     (...args) => {
       if (minimized.current) {
         return;
       }
       bottomSheetRef.current?.forceClose(...args);
     },
-    []
+    [],
   );
   //#endregion
 
@@ -198,9 +198,8 @@ function BottomSheetModalComponent<T = any>(
         mountSheet(
           key,
           ref as unknown as RefObject<BottomSheetModalPrivateMethods>,
-          stackBehavior
+          stackBehavior,
         );
-        ref;
 
         if (__DEV__) {
           print({
@@ -211,10 +210,10 @@ function BottomSheetModalComponent<T = any>(
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [key, stackBehavior, mountSheet]
+    [key, stackBehavior, mountSheet],
   );
   // biome-ignore lint/correctness/useExhaustiveDependencies(BottomSheetModal.name): used for debug only
-  const handleDismiss = useCallback<BottomSheetModalMethods['dismiss']>(
+  const handleDismiss = useCallback<BottomSheetModalMethods["dismiss"]>(
     function handleDismiss(animationConfigs) {
       if (__DEV__) {
         print({
@@ -255,7 +254,7 @@ function BottomSheetModalComponent<T = any>(
       forcedDismissed.current = true;
       bottomSheetRef.current?.forceClose(animationConfigs);
     },
-    [willUnmountSheet, unmount, key, enablePanDownToClose]
+    [willUnmountSheet, unmount, key, enablePanDownToClose],
   );
   const handleMinimize = useCallback(
     function handleMinimize() {
@@ -285,7 +284,7 @@ function BottomSheetModalComponent<T = any>(
       }
       bottomSheetRef.current?.close();
     },
-    [index]
+    [index],
   );
   // biome-ignore lint/correctness/useExhaustiveDependencies(BottomSheetModal.name): used for debug only
   const handleRestore = useCallback(function handleRestore() {
@@ -337,10 +336,10 @@ function BottomSheetModalComponent<T = any>(
       willUnmountSheet(key);
       bottomSheetRef.current?.close();
     },
-    [key, unmount, willUnmountSheet]
+    [key, unmount, willUnmountSheet],
   );
   const handlePortalRender = useCallback(function handlePortalRender(
-    render: () => void
+    render: () => void,
   ) {
     if (mounted.current) {
       render();
@@ -351,13 +350,13 @@ function BottomSheetModalComponent<T = any>(
     function handleBottomSheetOnChange(
       _index: number,
       _position: number,
-      _type: SNAP_POINT_TYPE
+      _type: SNAP_POINT_TYPE,
     ) {
       if (__DEV__) {
         print({
           component: BottomSheetModal.name,
           method: handleBottomSheetOnChange.name,
-          category: 'callback',
+          category: "callback",
           params: {
             minimized: minimized.current,
             forcedDismissed: forcedDismissed.current,
@@ -371,14 +370,14 @@ function BottomSheetModalComponent<T = any>(
         _providedOnChange(_index, _position, _type);
       }
     },
-    [_providedOnChange]
+    [_providedOnChange],
   );
   const handleBottomSheetOnAnimate = useCallback(
     (
       fromIndex: number,
       toIndex: number,
       fromPosition: number,
-      toPosition: number
+      toPosition: number,
     ) => {
       nextIndexRef.current = toIndex;
 
@@ -386,7 +385,7 @@ function BottomSheetModalComponent<T = any>(
         _providedOnAnimate(fromIndex, toIndex, fromPosition, toPosition);
       }
     },
-    [_providedOnAnimate]
+    [_providedOnAnimate],
   );
   // biome-ignore lint/correctness/useExhaustiveDependencies(BottomSheetModal.name): used for debug only
   const handleBottomSheetOnClose = useCallback(
@@ -395,7 +394,7 @@ function BottomSheetModalComponent<T = any>(
         print({
           component: BottomSheetModal.name,
           method: handleBottomSheetOnClose.name,
-          category: 'callback',
+          category: "callback",
           params: {
             minimized: minimized.current,
             forcedDismissed: forcedDismissed.current,
@@ -411,7 +410,7 @@ function BottomSheetModalComponent<T = any>(
         unmount();
       }
     },
-    [enableDismissOnClose, unmount]
+    [enableDismissOnClose, unmount],
   );
   //#endregion
 
@@ -458,25 +457,22 @@ function BottomSheetModalComponent<T = any>(
           onAnimate={handleBottomSheetOnAnimate}
           $modal={true}
         >
-          {typeof Content === 'function' ? <Content data={data} /> : Content}
+          {typeof Content === "function" ? <Content data={data} /> : Content}
         </BottomSheet>
       </ContainerComponent>
     </Portal>
   ) : null;
 }
 
-const BottomSheetModal = memo(forwardRef(BottomSheetModalComponent)) as <
+const BottomSheetModal = memo(forwardRef(BottomSheetModalComponent)) as (<
   // biome-ignore lint/suspicious/noExplicitAny: Using 'any' allows users to define their own strict types for 'data' property.
   T = any,
 >(
   props: BottomSheetModalProps<T> & {
-    ref?: React.ForwardedRef<BottomSheetModal<T>>;
-  }
-) => ReturnType<typeof BottomSheetModalComponent>;
-(
-  BottomSheetModal as React.MemoExoticComponent<
-    typeof BottomSheetModalComponent
-  >
-).displayName = 'BottomSheetModal';
+    ref?: React.Ref<BottomSheetModalRef<T>>;
+  },
+) => React.ReactElement | null) & { displayName?: string };
+
+BottomSheetModal.displayName = "BottomSheetModal";
 
 export default BottomSheetModal;

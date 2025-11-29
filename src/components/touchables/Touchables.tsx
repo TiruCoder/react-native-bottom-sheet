@@ -2,4 +2,4 @@ export {
   TouchableOpacity,
   TouchableHighlight,
   TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+} from "react-native-gesture-handler";

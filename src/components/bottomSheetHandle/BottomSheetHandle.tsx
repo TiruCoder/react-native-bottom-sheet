@@ -1,13 +1,13 @@
-import React, { memo, useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { memo, useMemo } from "react";
+import { StyleSheet, View } from "react-native";
 import {
   DEFAULT_ACCESSIBILITY_HINT,
   DEFAULT_ACCESSIBILITY_LABEL,
   DEFAULT_ACCESSIBILITY_ROLE,
   DEFAULT_ACCESSIBLE,
-} from './constants';
-import { styles } from './styles';
-import type { BottomSheetDefaultHandleProps } from './types';
+} from "./constants";
+import { styles } from "./styles";
+import type { BottomSheetDefaultHandleProps } from "./types";
 
 function BottomSheetHandleComponent({
   style,
@@ -21,11 +21,11 @@ function BottomSheetHandleComponent({
   //#region styles
   const containerStyle = useMemo(
     () => [styles.container, StyleSheet.flatten(style)],
-    [style]
+    [style],
   );
   const indicatorStyle = useMemo(
     () => [styles.indicator, StyleSheet.flatten(_indicatorStyle)],
-    [_indicatorStyle]
+    [_indicatorStyle],
   );
   //#endregion
 
@@ -46,6 +46,6 @@ function BottomSheetHandleComponent({
 }
 
 const BottomSheetHandle = memo(BottomSheetHandleComponent);
-BottomSheetHandle.displayName = 'BottomSheetHandle';
+BottomSheetHandle.displayName = "BottomSheetHandle";
 
 export default BottomSheetHandle;

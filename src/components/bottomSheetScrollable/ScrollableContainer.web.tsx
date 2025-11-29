@@ -3,20 +3,20 @@ import React, {
   forwardRef,
   useCallback,
   useRef,
-} from 'react';
-import type { LayoutChangeEvent, ViewProps } from 'react-native';
-import type { SimultaneousGesture } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
-import { INITIAL_LAYOUT_VALUE } from '../../constants';
-import { useBottomSheetInternal } from '../../hooks';
-import { BottomSheetDraggableScrollable } from './BottomSheetDraggableScrollable';
+} from "react";
+import type { LayoutChangeEvent, ViewProps } from "react-native";
+import type { SimultaneousGesture } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
+import { INITIAL_LAYOUT_VALUE } from "../../constants";
+import { useBottomSheetInternal } from "../../hooks";
+import { BottomSheetDraggableScrollable } from "./BottomSheetDraggableScrollable";
 
 interface ScrollableContainerProps {
   nativeGesture: SimultaneousGesture;
   setContentSize: (contentHeight: number) => void;
   // biome-ignore lint/suspicious/noExplicitAny: 🤷‍♂️
   ScrollableComponent: any;
-  onLayout: ViewProps['onLayout'];
+  onLayout: ViewProps["onLayout"];
 }
 
 /**
@@ -24,7 +24,7 @@ interface ScrollableContainerProps {
  */
 const isWebkit = () => {
   // @ts-ignore
-  return navigator.userAgent.indexOf('Safari') > -1;
+  return navigator.userAgent.indexOf("Safari") > -1;
 };
 
 export const ScrollableContainer = forwardRef<
@@ -39,7 +39,7 @@ export const ScrollableContainer = forwardRef<
     onLayout,
     ...rest
   },
-  ref
+  ref,
 ) {
   //#region refs
   const isInitialContentHeightCaptured = useRef(false);
@@ -54,7 +54,7 @@ export const ScrollableContainer = forwardRef<
     (props: ComponentProps<typeof Animated.ScrollView>) => (
       <Animated.ScrollView {...props} animatedProps={animatedProps} />
     ),
-    [animatedProps]
+    [animatedProps],
   );
 
   /**
@@ -86,7 +86,7 @@ export const ScrollableContainer = forwardRef<
         });
       }
     },
-    [onLayout, setContentSize, animatedLayoutState]
+    [onLayout, setContentSize, animatedLayoutState],
   );
   //#endregion
   return (

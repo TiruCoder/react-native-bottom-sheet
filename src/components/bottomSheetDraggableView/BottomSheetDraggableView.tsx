@@ -1,12 +1,12 @@
-import React, { useMemo, memo } from 'react';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
-import { BottomSheetDraggableContext } from '../../contexts/gesture';
+import React, { useMemo, memo } from "react";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
+import { BottomSheetDraggableContext } from "../../contexts/gesture";
 import {
   useBottomSheetGestureHandlers,
   useBottomSheetInternal,
-} from '../../hooks';
-import type { BottomSheetDraggableViewProps } from './types';
+} from "../../hooks";
+import type { BottomSheetDraggableViewProps } from "./types";
 
 const BottomSheetDraggableViewComponent = ({
   nativeGestureRef,
@@ -70,7 +70,7 @@ const BottomSheetDraggableViewComponent = ({
 
     if (simultaneousHandlers) {
       gesture = gesture.simultaneousWithExternalGesture(
-        simultaneousHandlers as never
+        simultaneousHandlers as never,
       );
     }
 
@@ -118,6 +118,6 @@ const BottomSheetDraggableViewComponent = ({
 };
 
 const BottomSheetDraggableView = memo(BottomSheetDraggableViewComponent);
-BottomSheetDraggableView.displayName = 'BottomSheetDraggableView';
+BottomSheetDraggableView.displayName = "BottomSheetDraggableView";
 
 export default BottomSheetDraggableView;

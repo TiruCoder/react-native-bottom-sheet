@@ -1,2 +1,2 @@
-export { BottomSheetBackgroundContainer } from './BottomSheetBackgroundContainer';
-export type { BottomSheetBackgroundProps } from './types';
+export { BottomSheetBackgroundContainer } from "./BottomSheetBackgroundContainer";
+export type { BottomSheetBackgroundProps } from "./types";

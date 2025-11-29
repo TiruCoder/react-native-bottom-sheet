@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useBottomSheetInternal } from '../../hooks';
+import { useCallback } from "react";
+import { useBottomSheetInternal } from "../../hooks";
 
 /**
  * A hook to set the content size properly into the bottom sheet,
@@ -16,13 +16,13 @@ export function useBottomSheetContentSizeSetter() {
       if (!enableDynamicSizing) {
         return;
       }
-      animatedLayoutState.modify(state => {
-        'worklet';
+      animatedLayoutState.modify((state) => {
+        "worklet";
         state.contentHeight = contentHeight;
         return state;
       });
     },
-    [enableDynamicSizing, animatedLayoutState]
+    [enableDynamicSizing, animatedLayoutState],
   );
   //#endregion
 

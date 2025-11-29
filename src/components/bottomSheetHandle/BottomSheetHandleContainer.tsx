@@ -1,16 +1,16 @@
-import React, { memo, useCallback, useMemo, useRef } from 'react';
-import type { LayoutChangeEvent, View } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
+import React, { memo, useCallback, useMemo, useRef } from "react";
+import type { LayoutChangeEvent, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
 import {
   type BoundingClientRect,
   useBottomSheetGestureHandlers,
   useBottomSheetInternal,
   useBoundingClientRect,
-} from '../../hooks';
-import { print } from '../../utilities';
-import { DEFAULT_ENABLE_HANDLE_PANNING_GESTURE } from '../bottomSheet/constants';
-import type { BottomSheetHandleContainerProps } from './types';
+} from "../../hooks";
+import { print } from "../../utilities";
+import { DEFAULT_ENABLE_HANDLE_PANNING_GESTURE } from "../bottomSheet/constants";
+import type { BottomSheetHandleContainerProps } from "./types";
 
 function BottomSheetHandleContainerComponent({
   animatedIndex,
@@ -72,7 +72,7 @@ function BottomSheetHandleContainerComponent({
 
     if (simultaneousHandlers) {
       gesture = gesture.simultaneousWithExternalGesture(
-        simultaneousHandlers as never
+        simultaneousHandlers as never,
       );
     }
 
@@ -115,45 +115,45 @@ function BottomSheetHandleContainerComponent({
         layout: { height },
       },
     }: LayoutChangeEvent) {
-      animatedLayoutState.modify(state => {
-        'worklet';
+      animatedLayoutState.modify((state) => {
+        "worklet";
         state.handleHeight = height;
         return state;
       });
 
       if (__DEV__) {
         print({
-          component: 'BottomSheetHandleContainer',
-          method: 'handleContainerLayout',
-          category: 'layout',
+          component: "BottomSheetHandleContainer",
+          method: "handleContainerLayout",
+          category: "layout",
           params: {
             height,
           },
         });
       }
     },
-    [animatedLayoutState]
+    [animatedLayoutState],
   );
   const handleBoundingClientRect = useCallback(
     ({ height }: BoundingClientRect) => {
-      animatedLayoutState.modify(state => {
-        'worklet';
+      animatedLayoutState.modify((state) => {
+        "worklet";
         state.handleHeight = height;
         return state;
       });
 
       if (__DEV__) {
         print({
-          component: 'BottomSheetHandleContainer',
-          method: 'handleBoundingClientRect',
-          category: 'layout',
+          component: "BottomSheetHandleContainer",
+          method: "handleBoundingClientRect",
+          category: "layout",
           params: {
             height,
           },
         });
       }
     },
-    [animatedLayoutState]
+    [animatedLayoutState],
   );
   //#endregion
 
@@ -182,6 +182,6 @@ function BottomSheetHandleContainerComponent({
 }
 
 const BottomSheetHandleContainer = memo(BottomSheetHandleContainerComponent);
-BottomSheetHandleContainer.displayName = 'BottomSheetHandleContainer';
+BottomSheetHandleContainer.displayName = "BottomSheetHandleContainer";
 
 export default BottomSheetHandleContainer;

@@ -1,10 +1,10 @@
 import {
   type NodeHandle,
   findNodeHandle as _findNodeHandle,
-} from 'react-native';
+} from "react-native";
 
 export function findNodeHandle(
-  componentOrHandle: Parameters<typeof _findNodeHandle>['0']
+  componentOrHandle: Parameters<typeof _findNodeHandle>["0"],
 ) {
   let nodeHandle: NodeHandle | null;
   try {
@@ -28,6 +28,6 @@ export function findNodeHandle(
     return nodeHandle;
   }
 
-  console.warn('could not find scrollable ref!');
+  console.warn("could not find scrollable ref!");
   return componentOrHandle;
 }

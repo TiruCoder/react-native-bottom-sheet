@@ -1,34 +1,34 @@
-import type React from 'react';
-import type { Insets, StyleProp, View, ViewStyle } from 'react-native';
-import type { PanGesture } from 'react-native-gesture-handler';
+import type React from "react";
+import type { Insets, StyleProp, View, ViewStyle } from "react-native";
+import type { PanGesture } from "react-native-gesture-handler";
 import type {
   AnimateStyle,
   ReduceMotion,
   SharedValue,
   WithSpringConfig,
   WithTimingConfig,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 import type {
   ANIMATION_SOURCE,
   KEYBOARD_BEHAVIOR,
   KEYBOARD_BLUR_BEHAVIOR,
   KEYBOARD_INPUT_MODE,
   SNAP_POINT_TYPE,
-} from '../../constants';
+} from "../../constants";
 import type {
   ContainerLayoutState,
   GestureEventsHandlersHookType,
   NullableAccessibilityProps,
-} from '../../types';
-import type { BottomSheetBackdropProps } from '../bottomSheetBackdrop';
-import type { BottomSheetBackgroundProps } from '../bottomSheetBackground';
-import type { BottomSheetFooterProps } from '../bottomSheetFooter';
-import type { BottomSheetHandleProps } from '../bottomSheetHandle';
+} from "../../types";
+import type { BottomSheetBackdropProps } from "../bottomSheetBackdrop";
+import type { BottomSheetBackgroundProps } from "../bottomSheetBackground";
+import type { BottomSheetFooterProps } from "../bottomSheetFooter";
+import type { BottomSheetHandleProps } from "../bottomSheetHandle";
 
 export interface BottomSheetProps
   extends BottomSheetAnimationConfigs,
     Partial<BottomSheetGestureProps>,
-    Omit<NullableAccessibilityProps, 'accessibilityHint'> {
+    Omit<NullableAccessibilityProps, "accessibilityHint"> {
   //#region configuration
   /**
    * Initial snap point index, provide `-1` to initiate bottom sheet in closed state.
@@ -47,7 +47,7 @@ export interface BottomSheetProps
    * snapPoints={['%100']}
    * @type Array<string | number>
    */
-  snapPoints?: Array<string | number> | SharedValue<Array<string | number>>;
+  snapPoints?: (string | number)[] | SharedValue<(string | number)[]>;
   /**
    * Defines how violently sheet has to be stopped while over dragging.
    * @type number
@@ -203,14 +203,14 @@ export interface BottomSheetProps
     AnimateStyle<
       Omit<
         ViewStyle,
-        | 'flexDirection'
-        | 'position'
-        | 'top'
-        | 'left'
-        | 'bottom'
-        | 'right'
-        | 'opacity'
-        | 'transform'
+        | "flexDirection"
+        | "position"
+        | "top"
+        | "left"
+        | "bottom"
+        | "right"
+        | "opacity"
+        | "transform"
       >
     >
   >;
@@ -220,7 +220,7 @@ export interface BottomSheetProps
    * @default undefined
    */
   backgroundStyle?: StyleProp<
-    Omit<ViewStyle, 'position' | 'top' | 'left' | 'bottom' | 'right'>
+    Omit<ViewStyle, "position" | "top" | "left" | "bottom" | "right">
   >;
   /**
    * View style to be applied to the handle component.
@@ -280,7 +280,7 @@ export interface BottomSheetProps
     fromIndex: number,
     toIndex: number,
     fromPosition: number,
-    toPosition: number
+    toPosition: number,
   ) => void;
   //#endregion
 
@@ -341,18 +341,18 @@ export type AnimateToPositionType = (
   position: number,
   source: ANIMATION_SOURCE,
   velocity?: number,
-  configs?: WithTimingConfig | WithSpringConfig
+  configs?: WithTimingConfig | WithSpringConfig,
 ) => void;
 
 export type BottomSheetGestureProps = {
-  activeOffsetX: Parameters<PanGesture['activeOffsetX']>[0];
-  activeOffsetY: Parameters<PanGesture['activeOffsetY']>[0];
+  activeOffsetX: Parameters<PanGesture["activeOffsetX"]>[0];
+  activeOffsetY: Parameters<PanGesture["activeOffsetY"]>[0];
 
-  failOffsetY: Parameters<PanGesture['failOffsetY']>[0];
-  failOffsetX: Parameters<PanGesture['failOffsetX']>[0];
+  failOffsetY: Parameters<PanGesture["failOffsetY"]>[0];
+  failOffsetX: Parameters<PanGesture["failOffsetX"]>[0];
 
   simultaneousHandlers: Parameters<
-    PanGesture['simultaneousWithExternalGesture']
+    PanGesture["simultaneousWithExternalGesture"]
   >[0];
-  waitFor: Parameters<PanGesture['requireExternalGestureToFail']>[0];
+  waitFor: Parameters<PanGesture["requireExternalGestureToFail"]>[0];
 };
